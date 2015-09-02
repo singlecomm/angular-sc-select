@@ -37,7 +37,6 @@
               sc-options="person.email as person.name for person in people"
               page-limit="20"
               total-items="110"
-              search-enabled="false"
               placeholder="Select or search a person in the list...">
             </sc-select>
 
@@ -56,7 +55,6 @@
                 multiple="true"
                 page-limit="20"
                 total-items="110"
-                search-enabled="false"
                 placeholder="Select or search a person in the list...">
               </sc-select>
               <span class="input-group-btn">
@@ -100,9 +98,6 @@
             <sc-select
               ng-model="person.selected"
               sc-options="person.email as person.name for person in people"
-              page-limit="20"
-              total-items="110"
-              search-enabled="false"
               placeholder="Select or search a person in the list..."
               ng-disabled="true">
             </sc-select>

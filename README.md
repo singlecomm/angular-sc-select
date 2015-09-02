@@ -9,4 +9,3 @@ A better AngularJS Multi-Select directive
 * Handle groups
 * Handle disabled choices
 * Refresh delay
-* Allow disabling
