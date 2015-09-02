@@ -1,13 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="demo">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+        <link rel="stylesheet" href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css">
+        <style>
+            body {
+                padding: 15px;
+            }
+        </style>
     </head>
-    <body ng-app="sc.select">
-        <h1>Hello, world!</h1>
-        <script src="angular-sc-select.js"></script>
+    <body ng-controller="DemoCtrl">
+        <p>Selected: {{person.selected.name}}</p>
+
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>ui-select inside a Bootstrap form</legend>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Default</label>
+                    <div class="col-sm-6">
+
+                        <ui-select ng-model="person.selected" theme="select2" class="form-control" title="Choose a person">
+                            <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="item in people | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                <small ng-bind-html="item.email | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Multiple</label>
+                    <div class="col-sm-6">
+
+                        <ui-select multiple sortable="true" ng-model="person.selected" theme="select2" class="form-control" title="Choose a person">
+                            <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="item in people | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                <small ng-bind-html="item.email | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Grouped</label>
+                    <div class="col-sm-6">
+
+                        <ui-select ng-model="person.selected" theme="select2" class="form-control" title="Choose a person">
+                            <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices group-by="'group'" repeat="item in people | filter: $select.search">
+                                <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                <small ng-bind-html="item.email | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">With a clear button</label>
+                    <div class="col-sm-6">
+                        <div class="input-group select2-bootstrap-append">
+
+                            <ui-select ng-model="person.selected" theme="select2" class="form-control" title="Choose a person">
+                                <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="item in people | filter: $select.search">
+                                    <span ng-bind-html="item.name | highlight: $select.search"></span>
+                                    <small ng-bind-html="item.email | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+
+                            <span class="input-group-btn">
+                              <button ng-click="person.selected = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                              </button>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Disabled</label>
+                    <div class="col-sm-6">
+
+                        <ui-select ng-model="person.selected" theme="select2" class="form-control" ng-disabled="true" title="Choose a person">
+                            <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="item in people | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                <small ng-bind-html="item.email | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+        <script src="bundle.js"></script>
     </body>
 </html>
