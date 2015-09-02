@@ -84,8 +84,15 @@ export default angular
 
         vm.items = [];
 
+        var oldSearchText;
+
         vm.searchItems = function() {
           if (vm.uiSelectCtrl) {
+            //reset page if the search text has changed
+            if (oldSearchText !== vm.uiSelectCtrl.search) {
+              vm.currentPage = 1;
+            }
+            oldSearchText = vm.uiSelectCtrl.search;
             return $q.when(vm.parsedOptions.source(optionScope, {
               page: vm.currentPage,
               searchText: vm.uiSelectCtrl.search
