@@ -35,12 +35,51 @@ export default angular
 
     return {
       restrict: 'E',
-      controller: function() {
+      require: 'ngModel',
+      template: `
+        <ui-select ng-model="vm.selected" ng-change="vm.modelChanged()" theme="select2" class="form-control">
+          <ui-select-match placeholder="{{ vm.placeholder }}">
+            {{ vm.getMappedItem($select.selected) }}
+          </ui-select-match>
+          <ui-select-choices repeat="item in vm.items | filter: $select.search">
+            <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      `,
+      controller: function($attrs, $q, scSelectParser) {
 
-        var vm = this;
+        var vm = this, optionScope;
         vm.currentPage = 1;
+
         vm.changePage = function(newPage) {
           vm.currentPage = newPage;
+          $q.when(vm.parsedOptions.source(optionScope, {page: vm.currentPage})).then(function(items) {
+            vm.items = items;
+          });
+        };
+
+        vm.parsedOptions = scSelectParser.parse($attrs.scOptions);
+
+        vm.setOptionScope = function(scope) {
+          optionScope = scope;
+          vm.changePage(vm.currentPage);
+        };
+
+        vm.setNgModelCtrl = function(ngModelCtrl) {
+          vm.ngModelCtrl = ngModelCtrl;
+          ngModelCtrl.$render = function() {
+            vm.selected = ngModelCtrl.$viewValue;
+          };
+        };
+
+        vm.modelChanged = function() {
+          vm.ngModelCtrl.$setViewValue(vm.selected);
+        };
+
+        vm.getMappedItem = function(localItem) {
+          var scope = {};
+          scope[vm.parsedOptions.itemName] = localItem;
+          return vm.parsedOptions.viewMapper(scope);
         };
 
       },
@@ -48,7 +87,11 @@ export default angular
       bindToController: true,
       scope: {
         pageLimit: '=',
-        totalItems: '='
+        totalItems: '=',
+        placeholder: '@'
+      },
+      link: function(scope, elm, attrs, ngModelCtrl) {
+        scope.vm.setNgModelCtrl(ngModelCtrl);
       }
     };
 
@@ -59,7 +102,7 @@ export default angular
       restrict: 'A',
       require: 'scSelect',
       link: (scope, elm, attrs, scSelectCtrl) => {
-        scSelectCtrl.optionScope = scope; //this is the parent scope
+        scSelectCtrl.setOptionScope(scope);
       }
     };
 

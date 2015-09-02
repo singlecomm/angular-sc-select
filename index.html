@@ -40,14 +40,6 @@
               total-items="110"
               search-enabled="false"
               placeholder="Select or search a person in the list...">
-              <ui-select ng-model="person.selected" theme="select2" class="form-control">
-                <ui-select-match placeholder="Select or search a person in the list...">
-                  {{ $select.selected.name }}
-                </ui-select-match>
-                <ui-select-choices repeat="item in people | filter: $select.search">
-                  <div ng-bind-html="item.name | highlight: $select.search"></div>
-                </ui-select-choices>
-              </ui-select>
             </sc-select>
 
           </div>
