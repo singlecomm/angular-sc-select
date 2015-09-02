@@ -51,6 +51,8 @@
             <sc-select
               ng-model="person.selected"
               sc-options="person.email as person.name for person in people"
+              page-limit="20"
+              total-items="110"
               multiple="true"
               placeholder="Select or search a person in the list...">
             </sc-select>
