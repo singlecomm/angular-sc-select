@@ -78,10 +78,17 @@ export default angular
         $compile(selectElm)($scope);
         $element.append(selectElm);
 
+        vm.items = [];
+
         vm.searchItems = function() {
-          return $q.when(vm.parsedOptions.source(optionScope, {page: vm.currentPage})).then(function(items) {
-            vm.items = items;
-          });
+          if (vm.uiSelectCtrl) {
+            return $q.when(vm.parsedOptions.source(optionScope, {
+              page: vm.currentPage,
+              searchText: vm.uiSelectCtrl.search
+            })).then(function(items) {
+              vm.items = items;
+            });
+          }
         };
 
         vm.changePage = function(newPage) {
@@ -183,7 +190,7 @@ export default angular
 
     return {
       restrict: 'E',
-      require: '?^scSelect',
+      require: ['?^scSelect', '^uiSelect'],
       template: `
         <div
           ng-style="{padding: vm.scSelectCtrl.multiple ? '10px' : '10px 0'}"
@@ -213,8 +220,11 @@ export default angular
       bindToController: true,
       controller: angular.noop,
       controllerAs: 'vm',
-      link: (scope, elm, attrs, scSelectCtrl) => {
-        scope.vm.scSelectCtrl = scSelectCtrl;
+      link: (scope, elm, attrs, ctrls) => {
+        if (ctrls[0]) {
+          scope.vm.scSelectCtrl = ctrls[0];
+          ctrls[0].uiSelectCtrl = ctrls[1];
+        }
       }
     };
 

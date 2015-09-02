@@ -182,7 +182,7 @@ app.controller('DemoCtrl', function($scope, $http, $timeout, $interval) {
       'http://maps.googleapis.com/maps/api/geocode/json',
       {params: params}
     ).then(function(response) {
-        $scope.addresses = response.data.results;
+        return response.data.results;
       });
   };
 
