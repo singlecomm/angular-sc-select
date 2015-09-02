@@ -41,12 +41,15 @@ export default angular
           ng-disabled="vm.ngDisabled"
           theme="select2"
           class="form-control"
-          search-enabled="vm.searchEnabled"
-          refresh-delay="vm.refreshDelay">
+          search-enabled="vm.searchEnabled">
           <ui-select-match placeholder="{{ vm.placeholder }}">
             {{ vm.getMappedItem($item || $select.selected) }}
           </ui-select-match>
-          <ui-select-choices repeat="item in vm.items | filter: $select.search" refresh="vm.searchItems()">
+          <ui-select-choices
+            repeat="item in vm.items | filter: $select.search"
+            refresh="vm.searchItems()"
+            refresh-delay="vm.refreshDelay"
+            group-by="vm.groupBy">
             <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
@@ -169,7 +172,8 @@ export default angular
         multiple: '=',
         ngDisabled: '=',
         searchEnabled: '=',
-        refreshDelay: '='
+        refreshDelay: '=',
+        groupBy: '='
       },
       link: function(scope, elm, attrs, ngModelCtrl) {
         scope.vm.setNgModelCtrl(ngModelCtrl);
