@@ -14,7 +14,7 @@ export default angular
 
     return {
       parse: function(input) {
-        var match = input.match(TYPEAHEAD_REGEXP);
+        const match = input.match(TYPEAHEAD_REGEXP);
         if (!match) {
           throw new Error(
             'Expected typeahead specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_"' +
@@ -71,11 +71,12 @@ export default angular
       template: '<div></div>',
       controller: function($attrs, $element, $compile, $scope, $q, scSelectParser) {
 
-        var vm = this, optionScope;
+        const vm = this;
+        let optionScope;
         vm.currentPage = 1;
         vm.canToggleAll = vm.multiple && !vm.pageLimit;
 
-        var selectElm = angular.element(template);
+        const selectElm = angular.element(template);
         if (vm.multiple) {
           selectElm.find('ui-select').attr('multiple', 'multiple');
         }
@@ -84,7 +85,7 @@ export default angular
 
         vm.items = [];
 
-        var oldSearchText;
+        let oldSearchText;
 
         vm.searchItems = function() {
           if (vm.uiSelectCtrl) {
@@ -120,8 +121,8 @@ export default angular
             if (!ngModelCtrl.$viewValue) {
               return;
             }
-            var matchingItems = vm.items.filter(function(item) {
-              var itemValue = vm.parsedOptions.modelMapper({
+            const matchingItems = vm.items.filter(function(item) {
+              const itemValue = vm.parsedOptions.modelMapper({
                 [vm.parsedOptions.itemName]: item
               });
               if (vm.multiple) {
@@ -139,7 +140,7 @@ export default angular
         };
 
         vm.modelChanged = function() {
-          var modelValue;
+          let modelValue;
           if (vm.multiple) {
             modelValue = vm.selected.map(function(item) {
               return vm.parsedOptions.modelMapper({
