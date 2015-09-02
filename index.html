@@ -92,6 +92,24 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Disabled</label>
+
+          <div class="col-sm-6">
+
+            <sc-select
+              ng-model="person.selected"
+              sc-options="person.email as person.name for person in people"
+              page-limit="20"
+              total-items="110"
+              search-enabled="false"
+              placeholder="Select or search a person in the list..."
+              ng-disabled="true">
+            </sc-select>
+
+          </div>
+        </div>
+
       </fieldset>
     </form>
     <script src="bundle.js"></script>

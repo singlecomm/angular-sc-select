@@ -34,7 +34,12 @@ export default angular
   .directive('scSelect', () => {
 
     const template = `
-      <ui-select ng-model="vm.selected" ng-change="vm.modelChanged()" theme="select2" class="form-control">
+      <ui-select
+        ng-model="vm.selected"
+        ng-change="vm.modelChanged()"
+        ng-disabled="vm.ngDisabled"
+        theme="select2"
+        class="form-control">
         <ui-select-match placeholder="{{ vm.placeholder }}">
           {{ vm.getMappedItem($item || $select.selected) }}
         </ui-select-match>
@@ -102,7 +107,8 @@ export default angular
         pageLimit: '=',
         totalItems: '=',
         placeholder: '@',
-        multiple: '='
+        multiple: '=',
+        ngDisabled: '='
       },
       link: function(scope, elm, attrs, ngModelCtrl) {
         scope.vm.setNgModelCtrl(ngModelCtrl);
