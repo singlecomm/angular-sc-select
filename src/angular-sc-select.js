@@ -91,9 +91,9 @@ export default angular
               return;
             }
             var matchingItems = vm.items.filter(function(item) {
-              var scope = {};
-              scope[vm.parsedOptions.itemName] = item;
-              var itemValue = vm.parsedOptions.modelMapper(scope);
+              var itemValue = vm.parsedOptions.modelMapper({
+                [vm.parsedOptions.itemName]: item
+              });
               if (vm.multiple) {
                 return ngModelCtrl.$viewValue.indexOf(itemValue) > -1;
               } else {
@@ -112,22 +112,22 @@ export default angular
           var modelValue;
           if (vm.multiple) {
             modelValue = vm.selected.map(function(item) {
-              var scope = {};
-              scope[vm.parsedOptions.itemName] = item;
-              return vm.parsedOptions.modelMapper(scope);
+              return vm.parsedOptions.modelMapper({
+                [vm.parsedOptions.itemName]: item
+              });
             });
           } else {
-            var scope = {};
-            scope[vm.parsedOptions.itemName] = vm.selected;
-            modelValue = vm.parsedOptions.modelMapper(scope);
+            modelValue = vm.parsedOptions.modelMapper({
+              [vm.parsedOptions.itemName]: vm.selected
+            });
           }
           vm.ngModelCtrl.$setViewValue(modelValue);
         };
 
         vm.getMappedItem = function(localItem) {
-          var scope = {};
-          scope[vm.parsedOptions.itemName] = localItem;
-          return vm.parsedOptions.viewMapper(scope);
+          return vm.parsedOptions.viewMapper({
+            [vm.parsedOptions.itemName]: localItem
+          });
         };
 
       },
