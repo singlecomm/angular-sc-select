@@ -34,20 +34,31 @@ export default angular
   .directive('scSelect', () => {
 
     const template = `
-      <ui-select
-        ng-model="vm.selected"
-        ng-change="vm.modelChanged()"
-        ng-disabled="vm.ngDisabled"
-        theme="select2"
-        class="form-control"
-        search-enabled="vm.searchEnabled">
-        <ui-select-match placeholder="{{ vm.placeholder }}">
-          {{ vm.getMappedItem($item || $select.selected) }}
-        </ui-select-match>
-        <ui-select-choices repeat="item in vm.items | filter: $select.search" refresh="vm.searchItems()">
-          <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
-        </ui-select-choices>
-      </ui-select>
+      <div ng-class="{'input-group select2-bootstrap-append': vm.canToggleAll}">
+        <ui-select
+          ng-model="vm.selected"
+          ng-change="vm.modelChanged()"
+          ng-disabled="vm.ngDisabled"
+          theme="select2"
+          class="form-control"
+          search-enabled="vm.searchEnabled">
+          <ui-select-match placeholder="{{ vm.placeholder }}">
+            {{ vm.getMappedItem($item || $select.selected) }}
+          </ui-select-match>
+          <ui-select-choices repeat="item in vm.items | filter: $select.search" refresh="vm.searchItems()">
+            <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+        <span class="input-group-btn" ng-if="vm.canToggleAll">
+          <button
+            ng-click="vm.toggleAll()"
+            class="btn btn-default"
+            style="height: calc(100% + 14px)">
+            <span class="fa fa-check-square-o" ng-show="vm.items.length !== vm.selected.length"></span>
+            <span class="fa fa-square-o" ng-show="vm.items.length === vm.selected.length"></span>
+          </button>
+        </span>
+      </div>
     `;
 
     return {
@@ -58,10 +69,11 @@ export default angular
 
         var vm = this, optionScope;
         vm.currentPage = 1;
+        vm.canToggleAll = vm.multiple && !vm.pageLimit;
 
         var selectElm = angular.element(template);
         if (vm.multiple) {
-          selectElm.attr('multiple', 'multiple');
+          selectElm.find('ui-select').attr('multiple', 'multiple');
         }
         $compile(selectElm)($scope);
         $element.append(selectElm);
@@ -130,6 +142,15 @@ export default angular
           });
         };
 
+        vm.toggleAll = function() {
+          if (!vm.selected || vm.selected.length < vm.items.length) {
+            vm.selected = vm.items;
+          } else {
+            vm.selected = [];
+          }
+          vm.modelChanged();
+        };
+
       },
       controllerAs: 'vm',
       bindToController: true,
@@ -164,7 +185,9 @@ export default angular
       restrict: 'E',
       require: '?^scSelect',
       template: `
-        <div ng-style="{padding: vm.scSelectCtrl.multiple ? '10px' : '10px 0'}" ng-if="vm.scSelectCtrl">
+        <div
+          ng-style="{padding: vm.scSelectCtrl.multiple ? '10px' : '10px 0'}"
+          ng-if="vm.scSelectCtrl && vm.scSelectCtrl.pageLimit">
           <div class="btn-group">
             <button
              class="btn btn-default btn-xs"

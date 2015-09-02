@@ -48,22 +48,12 @@
 
           <div class="col-sm-6">
 
-            <div class="input-group select2-bootstrap-append">
-              <sc-select
-                ng-model="person.selected"
-                sc-options="person.email as person.name for person in people"
-                multiple="true"
-                page-limit="20"
-                total-items="110"
-                placeholder="Select or search a person in the list...">
-              </sc-select>
-              <span class="input-group-btn">
-                <button ng-click="person.selected = people" class="btn btn-default"
-                        style="height: calc(100% + 14px)">
-                  <span class="glyphicon glyphicon-check"></span>
-                </button>
-              </span>
-            </div>
+            <sc-select
+              ng-model="person.selected"
+              sc-options="person.email as person.name for person in people"
+              multiple="true"
+              placeholder="Select or search a person in the list...">
+            </sc-select>
 
           </div>
         </div>
