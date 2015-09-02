@@ -33,29 +33,42 @@ export default angular
   }])
   .directive('scSelect', () => {
 
+    const template = `
+      <ui-select ng-model="vm.selected" ng-change="vm.modelChanged()" theme="select2" class="form-control">
+        <ui-select-match placeholder="{{ vm.placeholder }}">
+          {{ vm.getMappedItem($item || $select.selected) }}
+        </ui-select-match>
+        <ui-select-choices repeat="item in vm.items | filter: $select.search" refresh="vm.searchItems()">
+          <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
+        </ui-select-choices>
+      </ui-select>
+    `;
+
     return {
       restrict: 'E',
       require: 'ngModel',
-      template: `
-        <ui-select ng-model="vm.selected" ng-change="vm.modelChanged()" theme="select2" class="form-control">
-          <ui-select-match placeholder="{{ vm.placeholder }}">
-            {{ vm.getMappedItem($select.selected) }}
-          </ui-select-match>
-          <ui-select-choices repeat="item in vm.items | filter: $select.search">
-            <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
-          </ui-select-choices>
-        </ui-select>
-      `,
-      controller: function($attrs, $q, scSelectParser) {
+      template: '<div></div>',
+      controller: function($attrs, $element, $compile, $scope, $q, scSelectParser) {
 
         var vm = this, optionScope;
         vm.currentPage = 1;
 
-        vm.changePage = function(newPage) {
-          vm.currentPage = newPage;
-          $q.when(vm.parsedOptions.source(optionScope, {page: vm.currentPage})).then(function(items) {
+        var selectElm = angular.element(template);
+        if (vm.multiple) {
+          selectElm.attr('multiple', 'multiple');
+        }
+        $compile(selectElm)($scope);
+        $element.append(selectElm);
+
+        vm.searchItems = function() {
+          return $q.when(vm.parsedOptions.source(optionScope, {page: vm.currentPage})).then(function(items) {
             vm.items = items;
           });
+        };
+
+        vm.changePage = function(newPage) {
+          vm.currentPage = newPage;
+          vm.searchItems();
         };
 
         vm.parsedOptions = scSelectParser.parse($attrs.scOptions);
@@ -88,7 +101,8 @@ export default angular
       scope: {
         pageLimit: '=',
         totalItems: '=',
-        placeholder: '@'
+        placeholder: '@',
+        multiple: '='
       },
       link: function(scope, elm, attrs, ngModelCtrl) {
         scope.vm.setNgModelCtrl(ngModelCtrl);
@@ -113,7 +127,7 @@ export default angular
       restrict: 'E',
       require: '?^scSelect',
       template: `
-        <div style="padding: 10px 0;" ng-if="vm.scSelectCtrl">
+        <div ng-style="{padding: vm.scSelectCtrl.multiple ? '10px' : '10px 0'}" ng-if="vm.scSelectCtrl">
           <div class="btn-group">
             <button
              class="btn btn-default btn-xs"

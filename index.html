@@ -35,7 +35,6 @@
             <sc-select
               ng-model="person.selected"
               sc-options="person.email as person.name for person in people"
-              multiple
               page-limit="20"
               total-items="110"
               search-enabled="false"
@@ -51,20 +50,15 @@
           <div class="col-sm-6">
 
             <div class="input-group select2-bootstrap-append">
-              <ui-select
-                multiple
-                sortable="true"
+              <sc-select
                 ng-model="person.selected"
-                theme="select2"
-                class="form-control">
-                <ui-select-match placeholder="Select or search a person in the list...">
-                  {{$item.name}}
-                </ui-select-match>
-                <ui-select-choices repeat="item in people | filter: $select.search">
-                  <div ng-bind-html="item.name | highlight: $select.search"></div>
-                  <small ng-bind-html="item.email | highlight: $select.search"></small>
-                </ui-select-choices>
-              </ui-select>
+                sc-options="person.email as person.name for person in people"
+                multiple="true"
+                page-limit="20"
+                total-items="110"
+                search-enabled="false"
+                placeholder="Select or search a person in the list...">
+              </sc-select>
               <span class="input-group-btn">
                 <button ng-click="person.selected = people" class="btn btn-default"
                         style="height: calc(100% + 14px)">
