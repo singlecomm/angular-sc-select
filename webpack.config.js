@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  entry: __dirname + '/src/entry.js',
+  entry: __dirname + '/src/angular-sc-select.js',
   devtool: 'cheap-module-eval-source-map',
   output: {
     filename: 'angular-sc-select.js'
