@@ -41,7 +41,8 @@ export default angular
           ng-disabled="vm.ngDisabled"
           theme="select2"
           class="form-control"
-          search-enabled="vm.searchEnabled">
+          search-enabled="vm.searchEnabled"
+          refresh-delay="vm.refreshDelay">
           <ui-select-match placeholder="{{ vm.placeholder }}">
             {{ vm.getMappedItem($item || $select.selected) }}
           </ui-select-match>
@@ -167,7 +168,8 @@ export default angular
         placeholder: '@',
         multiple: '=',
         ngDisabled: '=',
-        searchEnabled: '='
+        searchEnabled: '=',
+        refreshDelay: '='
       },
       link: function(scope, elm, attrs, ngModelCtrl) {
         scope.vm.setNgModelCtrl(ngModelCtrl);
