@@ -2,4 +2,6 @@
 A better AngularJS Multi-Select directive
 
 ### TODO
-* Handle disabled choices
+* Sort out dependencies
+* Unit tests
+* Docs
