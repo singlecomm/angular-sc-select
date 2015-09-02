@@ -2,9 +2,7 @@
 A better AngularJS Multi-Select directive
 
 ### TODO
-* Handle search text
-* Select the correct value from the option
-* Handle disabling the search text
+* Pass search text to the promise
 * Select all / none
 * Handle groups
 * Handle disabled choices

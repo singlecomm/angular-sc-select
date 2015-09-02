@@ -87,12 +87,41 @@ export default angular
         vm.setNgModelCtrl = function(ngModelCtrl) {
           vm.ngModelCtrl = ngModelCtrl;
           ngModelCtrl.$render = function() {
-            vm.selected = ngModelCtrl.$viewValue;
+            if (!ngModelCtrl.$viewValue) {
+              return;
+            }
+            var matchingItems = vm.items.filter(function(item) {
+              var scope = {};
+              scope[vm.parsedOptions.itemName] = item;
+              var itemValue = vm.parsedOptions.modelMapper(scope);
+              if (vm.multiple) {
+                return ngModelCtrl.$viewValue.indexOf(itemValue) > -1;
+              } else {
+                return ngModelCtrl.$viewValue === itemValue;
+              }
+            });
+            if (vm.multiple) {
+              vm.selected = matchingItems;
+            } else {
+              vm.selected = matchingItems[0];
+            }
           };
         };
 
         vm.modelChanged = function() {
-          vm.ngModelCtrl.$setViewValue(vm.selected);
+          var modelValue;
+          if (vm.multiple) {
+            modelValue = vm.selected.map(function(item) {
+              var scope = {};
+              scope[vm.parsedOptions.itemName] = item;
+              return vm.parsedOptions.modelMapper(scope);
+            });
+          } else {
+            var scope = {};
+            scope[vm.parsedOptions.itemName] = vm.selected;
+            modelValue = vm.parsedOptions.modelMapper(scope);
+          }
+          vm.ngModelCtrl.$setViewValue(modelValue);
         };
 
         vm.getMappedItem = function(localItem) {
