@@ -19,6 +19,10 @@ module.exports = {
     }, {
       test: /\.css/,
       loaders: ['style', 'css']
+    }, {
+      test: /\.html$/,
+      loader: 'html',
+      exclude: /node_modules/
     }]
   },
   devServer: {
