@@ -52,7 +52,7 @@ export default angular
           <ui-select-choices
             repeat="item in vm.items | filter: $select.search"
             refresh="vm.searchItems()"
-            refresh-delay="vm.refreshDelay"
+            refresh-delay="vm.refreshDelay || 200"
             group-by="vm.groupBy">
             <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
           </ui-select-choices>
