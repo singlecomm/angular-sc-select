@@ -10,8 +10,8 @@
       }
     </style>
   </head>
-  <body ng-controller="DemoCtrl">
-    <p>Selected: {{person.selected}}</p>
+  <body ng-controller="DemoCtrl as vm">
+    <p>Selected: {{ vm.selectedPerson }}</p>
 
     <form class="form-horizontal">
       <fieldset>
@@ -23,8 +23,8 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               page-limit="20"
               total-items="110"
               placeholder="Select or search a person in the list...">
@@ -39,8 +39,8 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               page-limit="20"
               total-items="110"
               multiple="true"
@@ -56,8 +56,8 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list..."
               group-by="someGroupFn">
             </sc-select>
@@ -71,8 +71,8 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list..."
               ng-disabled="true">
             </sc-select>
