@@ -1,12 +1,6 @@
-import angular from 'angular';
-import 'angular-sanitize';
-import 'ui-select';
-
 describe('scSelectParser', () => {
 
   let scSelectParser;
-
-  beforeEach(angular.mock.module('sc.select'));
 
   beforeEach(inject((_scSelectParser_) => {
     scSelectParser = _scSelectParser_;

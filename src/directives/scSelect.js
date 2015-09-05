@@ -42,7 +42,6 @@ export default function /*@ngInject*/ scSelect() {
 
       const vm = this;
       const loadingDelay = angular.isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;
-      let optionScope;
       vm.currentPage = 1;
       vm.canToggleAll = vm.multiple && !vm.pageLimit;
 
@@ -68,7 +67,7 @@ export default function /*@ngInject*/ scSelect() {
             vm.loading = true;
             vm.items = [];
           }, loadingDelay);
-          return $q.when(vm.parsedOptions.source(optionScope, {
+          return $q.when(vm.parsedOptions.source(vm.optionScope, {
             page: vm.currentPage,
             searchText: vm.uiSelectCtrl.search
           })).then(function(items) {
@@ -88,7 +87,7 @@ export default function /*@ngInject*/ scSelect() {
       vm.parsedOptions = scSelectParser.parse($attrs.scOptions);
 
       vm.setOptionScope = function(scope) {
-        optionScope = scope;
+        vm.optionScope = scope; //expose for testing
         vm.changePage(vm.currentPage);
       };
 
