@@ -53,5 +53,22 @@ How long to wait until displaying the loading indicator. If items are loaded bef
 ### group-by
 An expression used to group options by a value. Passed to the original `ui-select` so works exactly the same as that.
 
+For more examples [demo page](https://github.com/singlecomm/angular-sc-select/blob/master/index.html).
+
+## Development
+
+### Prepare your environment
+* Install [Node.js](http://nodejs.org/) and NPM (should come with)
+* Install local dev dependencies: `npm install` while current directory is this repo
+
+### Development server
+Run `npm start` to start a development server on port 8000 with auto reload + run tests. 
+
+### Testing
+Run `npm test` to run tests once or `npm run test:watch` to continually run tests (this is automatic when you run `npm start`). 
+
+### Build
+Run `npm run build` to build the project files in the dist folder
+
 ## Licence
 MIT
