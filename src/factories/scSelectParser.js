@@ -6,7 +6,7 @@ export default function /*@ngInject*/ scSelectParser($parse) {
       const match = input.match(TYPEAHEAD_REGEXP);
       if (!match) {
         throw new Error(
-          'Expected typeahead specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_"' +
+          'Expected options specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_"' +
           ' but got "' + input + '".');
       }
 

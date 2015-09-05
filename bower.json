@@ -1,0 +1,36 @@
+{
+  "name": "angular-sc-select",
+  "version": "0.1.0",
+  "homepage": "https://github.com/singlecomm/angular-sc-select",
+  "authors": [
+    "Matt Lewis"
+  ],
+  "description": "An opinionated wrapper around the ui-select module",
+  "main": "dist/sc-select.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular",
+    "select",
+    "dropdown",
+    "combobox",
+    "async",
+    "ui-select"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.4.5",
+    "bootstrap": "^3.3.5",
+    "font-awesome": "^4.4.0",
+    "select2-bootstrap-css": "^1.4.6",
+    "angular-ui-select": "^0.12.1"
+  }
+}

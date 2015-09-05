@@ -1,0 +1,6 @@
+{
+  "extends": "mwl/test",
+  "rules": {
+    "max-nested-callbacks": 0
+  }
+}
