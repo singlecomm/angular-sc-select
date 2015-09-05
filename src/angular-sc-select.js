@@ -212,7 +212,8 @@ export default angular
       template: `
         <div
           ng-style="{padding: vm.scSelectCtrl.multiple ? '10px' : '10px 0'}"
-          ng-if="vm.scSelectCtrl && vm.scSelectCtrl.pageLimit">
+          ng-if="vm.scSelectCtrl && vm.scSelectCtrl.pageLimit"
+          ng-show="vm.scSelectCtrl.items.length > 0">
           <div class="btn-group">
             <button
              class="btn btn-default btn-xs"
