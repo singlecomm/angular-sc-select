@@ -1,5 +1,5 @@
 import angular from 'angular';
-import scSelect from './src/angular-sc-select';
+import scSelect from './src/module';
 
 angular
   .module('demo', [scSelect])
