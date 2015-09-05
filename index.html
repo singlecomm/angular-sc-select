@@ -39,6 +39,7 @@
 
             <sc-select
               ng-model="vm.selectedTrack"
+              ng-model-options="{debounce: 200}"
               sc-options="artist as artist.name for artist in vm.searchAsync(searchText, page)"
               page-limit="vm.asyncPageLimit"
               total-items="vm.totalResults"

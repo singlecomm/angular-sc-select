@@ -71,12 +71,13 @@ export default angular
 
     return {
       restrict: 'E',
-      require: 'ngModel',
+      require: ['ngModel', '?ngModelOptions'],
       template: '<div></div>',
-      controller: function($attrs, $element, $compile, $scope, $q, scSelectParser) {
+      controller: function($attrs, $element, $compile, $scope, $q, $timeout, scSelectParser) {
 
         const vm = this;
         let optionScope;
+        let asyncDebounce = 0;
         vm.currentPage = 1;
         vm.canToggleAll = vm.multiple && !vm.pageLimit;
 
@@ -98,11 +99,18 @@ export default angular
               vm.currentPage = 1;
             }
             oldSearchText = vm.uiSelectCtrl.search;
+            const setLoadingTimeout = $timeout(function() {
+              vm.loading = true;
+              vm.items = [];
+            }, asyncDebounce);
             return $q.when(vm.parsedOptions.source(optionScope, {
               page: vm.currentPage,
               searchText: vm.uiSelectCtrl.search
             })).then(function(items) {
               vm.items = items;
+            }).finally(function() {
+              vm.loading = false;
+              $timeout.cancel(setLoadingTimeout);
             });
           }
         };
@@ -119,8 +127,13 @@ export default angular
           vm.changePage(vm.currentPage);
         };
 
-        vm.setNgModelCtrl = function(ngModelCtrl) {
+        vm.setNgModelCtrl = function(ngModelCtrl, ngModelOptions) {
           vm.ngModelCtrl = ngModelCtrl;
+
+          if (ngModelOptions) {
+            asyncDebounce = ngModelOptions.$options.debounce;
+          }
+
           ngModelCtrl.$render = function() {
             if (!ngModelCtrl.$viewValue) {
               return;
@@ -141,6 +154,7 @@ export default angular
               vm.selected = matchingItems[0];
             }
           };
+
         };
 
         vm.modelChanged = function() {
@@ -187,8 +201,8 @@ export default angular
         refreshDelay: '=',
         groupBy: '='
       },
-      link: function(scope, elm, attrs, ngModelCtrl) {
-        scope.vm.setNgModelCtrl(ngModelCtrl);
+      link: function(scope, elm, attrs, ctrls) {
+        scope.vm.setNgModelCtrl(ctrls[0], ctrls[1]);
       }
     };
 
@@ -210,6 +224,12 @@ export default angular
       restrict: 'E',
       require: ['?^scSelect', '^uiSelect'],
       template: `
+        <div
+          ng-show="vm.scSelectCtrl.loading"
+          style="padding: 10px"
+          class="text-center">
+          <i class="fa fa-spin fa-spinner"></i> <b>Loading...</b>
+        </div>
         <div
           ng-style="{padding: vm.scSelectCtrl.multiple ? '10px' : '10px 0'}"
           ng-if="vm.scSelectCtrl && vm.scSelectCtrl.pageLimit"
