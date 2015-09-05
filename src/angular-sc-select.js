@@ -71,13 +71,13 @@ export default angular
 
     return {
       restrict: 'E',
-      require: ['ngModel', '?ngModelOptions'],
+      require: 'ngModel',
       template: '<div></div>',
       controller: function($attrs, $element, $compile, $scope, $q, $timeout, scSelectParser) {
 
         const vm = this;
+        const loadingDelay = angular.isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;
         let optionScope;
-        let asyncDebounce = 0;
         vm.currentPage = 1;
         vm.canToggleAll = vm.multiple && !vm.pageLimit;
 
@@ -102,7 +102,7 @@ export default angular
             const setLoadingTimeout = $timeout(function() {
               vm.loading = true;
               vm.items = [];
-            }, asyncDebounce);
+            }, loadingDelay);
             return $q.when(vm.parsedOptions.source(optionScope, {
               page: vm.currentPage,
               searchText: vm.uiSelectCtrl.search
@@ -127,12 +127,8 @@ export default angular
           vm.changePage(vm.currentPage);
         };
 
-        vm.setNgModelCtrl = function(ngModelCtrl, ngModelOptions) {
+        vm.setNgModelCtrl = function(ngModelCtrl) {
           vm.ngModelCtrl = ngModelCtrl;
-
-          if (ngModelOptions) {
-            asyncDebounce = ngModelOptions.$options.debounce;
-          }
 
           ngModelCtrl.$render = function() {
             if (!ngModelCtrl.$viewValue) {
@@ -199,10 +195,11 @@ export default angular
         ngDisabled: '=',
         searchEnabled: '=',
         refreshDelay: '=',
+        loadingDelay: '=',
         groupBy: '='
       },
-      link: function(scope, elm, attrs, ctrls) {
-        scope.vm.setNgModelCtrl(ctrls[0], ctrls[1]);
+      link: function(scope, elm, attrs, ngModelCtrl) {
+        scope.vm.setNgModelCtrl(ngModelCtrl);
       }
     };
 
