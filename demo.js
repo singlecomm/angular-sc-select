@@ -3,7 +3,7 @@ import scSelect from './src/module';
 
 angular
   .module('demo', [scSelect])
-  .controller('DemoCtrl', /*@ngInject*/function($http) {
+  .controller('DemoCtrl', /*@ngInject*/ ($http) => {
 
     var vm = this;
     vm.people = [
@@ -26,6 +26,7 @@ angular
       if (!searchText) {
         return [];
       }
+
       return $http.jsonp('http://ws.audioscrobbler.com/2.0/', {
         params: {
           api_key: '9b0cdcf446cc96dea3e747787ad23575',
