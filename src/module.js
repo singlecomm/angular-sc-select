@@ -17,7 +17,7 @@ export default angular
   .directive('scSelect', scSelect)
   .directive('scOptions', scOptions)
   .directive('scSelectPaginator', scSelectPaginator)
-  .run(($templateCache) => {
+  .run(/*@ngInject*/ ($templateCache) => {
 
     const multiTemplateName = 'select2/select-multiple.tpl.html';
     const multiTemplate = angular.element(`<div>${$templateCache.get(multiTemplateName)}</div>`);
@@ -29,7 +29,7 @@ export default angular
     $templateCache.put(multiTemplateName, multiTemplate.html());
 
   })
-  .run(($templateCache) => {
+  .run(/*@ngInject*/ ($templateCache) => {
 
     const singleTemplateName = 'select2/select.tpl.html';
     const singleTemplate = angular.element(`<div>${$templateCache.get(singleTemplateName)}</div>`);

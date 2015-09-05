@@ -32,13 +32,13 @@ const template = `
   </div>
 `;
 
-export default function scSelect() {
+export default function /*@ngInject*/ scSelect() {
 
   return {
     restrict: 'E',
     require: 'ngModel',
     template: '<div></div>',
-    controller: function($attrs, $element, $compile, $scope, $q, $timeout, scSelectParser) {
+    controller: /*@ngInject*/ function($attrs, $element, $compile, $scope, $q, $timeout, scSelectParser) {
 
       const vm = this;
       const loadingDelay = angular.isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;

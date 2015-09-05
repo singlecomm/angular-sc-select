@@ -1,6 +1,6 @@
 import angular from 'angular';
 
-export default function scSelectPaginator() {
+export default function /*@ngInject*/ scSelectPaginator() {
 
   return {
     restrict: 'E',
