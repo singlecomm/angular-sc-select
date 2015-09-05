@@ -1,9 +1,11 @@
 import angular from 'angular';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
 import scSelect from './src/module';
 
 angular
   .module('demo', [scSelect])
-  .controller('DemoCtrl', /*@ngInject*/ ($http) => {
+  .controller('DemoCtrl', /*@ngInject*/ function($http) {
 
     var vm = this;
     vm.people = [
