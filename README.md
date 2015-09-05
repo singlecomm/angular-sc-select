@@ -6,8 +6,10 @@ This is a wrapper of the [ui-select](https://github.com/angular-ui/ui-select) di
 
 It supports most of the original ui-select options, but if you need more fine grained control then just use the original ui-select directive.
 
-## API
+## Demo
+http://singlecomm.github.io/angular-sc-select
 
+## API
 Example:
 ```
 <sc-select
@@ -51,6 +53,5 @@ How long to wait until displaying the loading indicator. If items are loaded bef
 ### group-by
 An expression used to group options by a value. Passed to the original `ui-select` so works exactly the same as that.
 
-## TODO
-* Unit tests
-* Docs
+## Licence
+MIT
