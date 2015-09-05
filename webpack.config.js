@@ -27,7 +27,7 @@ module.exports = {
       loader: 'file-loader'
     }, {
       test: /\.(png|gif)$/,
-      loader: 'file-loader'
+      loader: 'url-loader?limit=8192'
     }]
   },
   devServer: {
