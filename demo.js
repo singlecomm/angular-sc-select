@@ -3,7 +3,7 @@ import scSelect from './src/angular-sc-select';
 
 angular
   .module('demo', [scSelect])
-  .controller('DemoCtrl', function() {
+  .controller('DemoCtrl', function($http) {
 
     var vm = this;
     vm.people = [
@@ -18,5 +18,28 @@ angular
       { name: 'Michael',   email: 'michael@email.com',   age: 15, country: 'Colombia' },
       { name: 'Nicolás',   email: 'nicolas@email.com',    age: 43, country: 'Colombia' }
     ];
+
+    vm.asyncPageLimit = 10;
+    vm.totalResults = 0;
+
+    vm.searchAsync = function(searchText, page) {
+      if (!searchText) {
+        return [];
+      }
+      return $http.jsonp('http://ws.audioscrobbler.com/2.0/', {
+        params: {
+          api_key: '9b0cdcf446cc96dea3e747787ad23575',
+          track: searchText,
+          limit: vm.asyncPageLimit,
+          method: 'track.search',
+          page: page,
+          format: 'json',
+          callback: 'JSON_CALLBACK'
+        }
+      }).then(function(result) {
+        vm.totalResults = result.data.results['opensearch:totalResults'];
+        return result.data.results.trackmatches.track;
+      });
+    };
 
   });
