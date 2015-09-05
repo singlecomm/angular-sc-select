@@ -9,6 +9,27 @@ It supports most of the original ui-select options, but if you need more fine gr
 ## Demo
 http://singlecomm.github.io/angular-sc-select
 
+## Installation
+### bower
+```
+bower install angular-sc-select --save
+```
+
+```javascript
+angular.module('myApp', ['sc.select']);
+```
+
+Include `dist/sc-select.js` in your project, `dist/sc-select.css` contains the select2 and select2-bootstrap css for convenience.
+
+### npm
+```
+npm install angular-sc-select --save
+```
+
+```javascript
+angular.module('myApp', [require('sc-select'), require('ngSanitze'), require('ui-select')]);
+```
+
 ## API
 Example:
 ```
