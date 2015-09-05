@@ -21,13 +21,13 @@ export default function /*@ngInject*/ scSelectPaginator() {
              class="btn btn-default btn-xs"
              ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage - 1)"
              ng-disabled="vm.scSelectCtrl.currentPage <= 1">
-              <i class="glyphicon glyphicon-arrow-left"></i> Prev
+              <i class="fa fa-arrow-left"></i> Prev
             </button>
             <button
             class="btn btn-default btn-xs"
             ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage + 1)"
             ng-disabled="vm.scSelectCtrl.currentPage >= (vm.scSelectCtrl.totalItems / vm.scSelectCtrl.pageLimit)">
-              Next <i class="glyphicon glyphicon-arrow-right"></i>
+              Next <i class="fa fa-arrow-right"></i>
             </button>
           </div>
           <small class="pull-right">
