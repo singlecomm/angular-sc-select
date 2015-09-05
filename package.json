@@ -1,7 +1,7 @@
 {
   "name": "angular-sc-select",
   "version": "0.1.0",
-  "description": "A better AngularJS Multi-Select directive",
+  "description": "An opinionated wrapper around the ui-select module",
   "webpack": "src/module.js",
   "browser": "dist/sc-select.js",
   "scripts": {
