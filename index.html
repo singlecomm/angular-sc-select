@@ -1,43 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="demo">
+<html lang="en" ng-app="demo" ng-strict-di>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-      crossorigin="anonymous">
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
-      rel="stylesheet"
-      integrity="sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossorigin="anonymous">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
-    <link rel="stylesheet" href="http://fk.github.io/select2-bootstrap-css/css/select2-bootstrap.css">
     <style>
       body {
         padding: 15px;
       }
     </style>
   </head>
-  <body ng-controller="DemoCtrl">
-    <p>Selected: {{person.selected}}</p>
+  <body ng-controller="DemoCtrl as vm">
+    <p>Selected person: {{ vm.selectedPerson }}</p>
+    <p>Selected track: {{ vm.selectedTrack }}</p>
 
     <form class="form-horizontal">
       <fieldset>
-        <legend>ui-select inside a Bootstrap form</legend>
+        <legend>sc-select demo</legend>
 
         <div class="form-group">
-          <label class="col-sm-3 control-label">Default</label>
+          <label class="col-sm-3 control-label">Single</label>
 
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
-              page-limit="20"
-              total-items="110"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list...">
+            </sc-select>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Single async</label>
+
+          <div class="col-sm-6">
+
+            <sc-select
+              ng-model="vm.selectedTrack"
+              sc-options="artist as artist.name for artist in vm.searchAsync(searchText, page)"
+              page-limit="vm.asyncPageLimit"
+              total-items="vm.totalResults"
+              placeholder="Search for a song"
+              loading-delay="200">
             </sc-select>
 
           </div>
@@ -49,12 +55,27 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
-              page-limit="20"
-              total-items="110"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               multiple="true"
               placeholder="Select or search a person in the list...">
+            </sc-select>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Multiple async</label>
+
+          <div class="col-sm-6">
+
+            <sc-select
+              ng-model="vm.selectedTrack"
+              sc-options="artist as artist.name for artist in vm.searchAsync(searchText, page)"
+              page-limit="vm.asyncPageLimit"
+              total-items="vm.totalResults"
+              placeholder="Search for a song"
+              multiple="true">
             </sc-select>
 
           </div>
@@ -66,10 +87,10 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list..."
-              group-by="someGroupFn">
+              group-by="vm.groupBy">
             </sc-select>
 
           </div>
@@ -81,8 +102,8 @@
           <div class="col-sm-6">
 
             <sc-select
-              ng-model="person.selected"
-              sc-options="person.email as person.name for person in people"
+              ng-model="vm.selectedPerson"
+              sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list..."
               ng-disabled="true">
             </sc-select>
