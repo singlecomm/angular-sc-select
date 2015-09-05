@@ -1,16 +1,13 @@
 import angular from 'angular';
-import ngSanitize from 'angular-sanitize';
-import uiSelect from 'exports?"ui.select"!ui-select';
 import 'select2/select2.css';
 import 'select2-bootstrap-css/select2-bootstrap.css';
-import 'ui-select/dist/select.css';
 import scSelectParser from './factories/scSelectParser';
 import scSelect from './directives/scSelect';
 import scOptions from './directives/scOptions';
 import scSelectPaginator from './directives/scSelectPaginator';
 
 export default angular
-  .module('sc.select', [ngSanitize, uiSelect])
+  .module('sc.select', ['ngSanitize', 'ui.select'])
   .factory('scSelectParser', scSelectParser)
   .directive('scSelect', scSelect)
   .directive('scOptions', scOptions)

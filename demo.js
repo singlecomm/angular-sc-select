@@ -2,6 +2,9 @@ import angular from 'angular';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.css';
 import scSelect from './src/module';
+import 'angular-sanitize';
+import 'ui-select';
+import 'ui-select/dist/select.css';
 
 angular
   .module('demo', [scSelect])
