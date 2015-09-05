@@ -1,5 +1,15 @@
 'use strict';
 
+var karma = require('karma');
+
+var server = new karma.Server({
+  configFile: __dirname + '/karma.conf.js',
+  autoWatch: true,
+  singleRun: false
+});
+
+server.start();
+
 module.exports = {
   entry: __dirname + '/demo.js',
   devtool: 'cheap-module-eval-source-map',
