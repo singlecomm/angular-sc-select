@@ -60,7 +60,7 @@ describe('scSelect directive', () => {
       expect(elm.find('.ui-select-container').hasClass('ui-select-multiple')).to.be.true;
     });
 
-    it('should show the toggle button', () => {
+    it('should show the select / delect all buttons', () => {
       const {elm} = createSelect(`
         <sc-select
           ng-model="vm.value"
@@ -68,10 +68,10 @@ describe('scSelect directive', () => {
           multiple="true">
         </sc-select>
       `);
-      expect(elm.find('.input-group-btn button').size()).to.be.equal(1);
+      expect(elm.find('.input-group-btn button').size()).to.be.equal(2);
     });
 
-    it('should call the toggle controller method', () => {
+    it('should call the select all controller method', () => {
       const {elm, selectCtrl, scope} = createSelect(`
         <sc-select
           ng-model="vm.value"
@@ -79,10 +79,24 @@ describe('scSelect directive', () => {
           multiple="true">
         </sc-select>
       `);
-      sinon.spy(selectCtrl, 'toggleAll');
-      elm.find('.input-group-btn button').click();
+      sinon.spy(selectCtrl, 'selectAll');
+      elm.find('.input-group-btn button').eq(0).click();
       scope.$apply();
-      expect(selectCtrl.toggleAll).to.have.been.called;
+      expect(selectCtrl.selectAll).to.have.been.called;
+    });
+
+    it('should call the deselect all controller method', () => {
+      const {elm, selectCtrl, scope} = createSelect(`
+        <sc-select
+          ng-model="vm.value"
+          sc-options="item for item in vm.items"
+          multiple="true">
+        </sc-select>
+      `);
+      sinon.spy(selectCtrl, 'deselectAll');
+      elm.find('.input-group-btn button').eq(1).click();
+      scope.$apply();
+      expect(selectCtrl.deselectAll).to.have.been.called;
     });
 
     it('should disable the select', () => {
@@ -295,26 +309,22 @@ describe('scSelect directive', () => {
 
     });
 
-    describe('toggleAll', () => {
+    it('should select all items', () => {
+      sinon.spy(select.selectCtrl, 'modelChanged');
+      select.selectCtrl.items = [{id: 1}];
+      select.selectCtrl.selected = [];
+      select.selectCtrl.selectAll();
+      expect(select.selectCtrl.selected).to.eql(select.selectCtrl.items);
+      expect(select.selectCtrl.modelChanged).to.have.been.called;
+    });
 
-      it('should select all items', () => {
-        sinon.spy(select.selectCtrl, 'modelChanged');
-        select.selectCtrl.items = [{id: 1}];
-        select.selectCtrl.selected = [];
-        select.selectCtrl.toggleAll();
-        expect(select.selectCtrl.selected).to.eql(select.selectCtrl.items);
-        expect(select.selectCtrl.modelChanged).to.have.been.called;
-      });
-
-      it('should deselect all items', () => {
-        sinon.spy(select.selectCtrl, 'modelChanged');
-        select.selectCtrl.items = [{id: 1}];
-        select.selectCtrl.selected = [{id: 1}];
-        select.selectCtrl.toggleAll();
-        expect(select.selectCtrl.selected).to.eql([]);
-        expect(select.selectCtrl.modelChanged).to.have.been.called;
-      });
-
+    it('should deselect all items', () => {
+      sinon.spy(select.selectCtrl, 'modelChanged');
+      select.selectCtrl.items = [{id: 1}];
+      select.selectCtrl.selected = [{id: 1}];
+      select.selectCtrl.deselectAll();
+      expect(select.selectCtrl.selected).to.eql([]);
+      expect(select.selectCtrl.modelChanged).to.have.been.called;
     });
 
   });

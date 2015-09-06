@@ -22,11 +22,16 @@ const template = `
     </ui-select>
     <span class="input-group-btn" ng-if="vm.canToggleAll">
       <button
-        ng-click="vm.toggleAll()"
+        ng-click="vm.selectAll()"
         class="btn btn-default"
         style="height: calc(100% + 14px)">
-        <span class="fa fa-check-square-o" ng-show="vm.items.length !== vm.selected.length"></span>
-        <span class="fa fa-square-o" ng-show="vm.items.length === vm.selected.length"></span>
+        <i class="fa fa-check-square-o"></i>
+      </button>
+      <button
+        ng-click="vm.deselectAll()"
+        class="btn btn-default"
+        style="height: calc(100% + 14px)">
+        <i class="fa fa-square-o"></i>
       </button>
     </span>
   </div>
@@ -142,12 +147,13 @@ export default function /*@ngInject*/ scSelect() {
         });
       };
 
-      vm.toggleAll = function() {
-        if (!vm.selected || vm.selected.length < vm.items.length) {
-          vm.selected = vm.items;
-        } else {
-          vm.selected = [];
-        }
+      vm.selectAll = function() {
+        vm.selected = vm.items;
+        vm.modelChanged();
+      };
+
+      vm.deselectAll = function() {
+        vm.selected = [];
         vm.modelChanged();
       };
 
