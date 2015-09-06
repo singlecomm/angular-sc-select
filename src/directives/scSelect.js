@@ -64,7 +64,7 @@ export default function /*@ngInject*/ scSelect() {
           }
 
           oldSearchText = vm.uiSelectCtrl.search;
-          const setLoadingTimeout = $timeout(function() {
+          const setLoadingTimeout = $timeout(() => {
             vm.loading = true;
             vm.items = [];
           }, loadingDelay);
@@ -72,9 +72,9 @@ export default function /*@ngInject*/ scSelect() {
           return $q.when(vm.parsedOptions.source(vm.optionScope, {
             page: vm.currentPage,
             searchText: vm.uiSelectCtrl.search
-          })).then(function(items) {
+          })).then((items) => {
             vm.items = items;
-          }).finally(function() {
+          }).finally(() => {
             vm.loading = false;
             $timeout.cancel(setLoadingTimeout);
           });
