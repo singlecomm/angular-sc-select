@@ -44,7 +44,7 @@
     "karma-sourcemap-loader": "~0.3.5",
     "karma-webpack": "~1.7.0",
     "mocha": "~2.3.0",
-    "ng-annotate-loader": "0.0.8",
+    "ng-annotate-loader": "0.0.10",
     "phantomjs": "~1.9.18",
     "style-loader": "~0.12.3",
     "url-loader": "~0.5.6",
