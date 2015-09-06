@@ -145,7 +145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    parse: function parse(input) {
 	      var match = input.match(TYPEAHEAD_REGEXP);
 	      if (!match) {
-	        throw new Error('Expected typeahead specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_"' + ' but got "' + input + '".');
+	        throw new Error('Expected options specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_"' + ' but got "' + input + '".');
 	      }
 
 	      return {
@@ -180,7 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var template = '\n  <div ng-class="{\'input-group select2-bootstrap-append\': vm.canToggleAll}">\n    <ui-select\n      ng-model="vm.selected"\n      ng-change="vm.modelChanged()"\n      ng-disabled="vm.ngDisabled"\n      theme="select2"\n      class="form-control"\n      search-enabled="vm.searchEnabled">\n      <ui-select-match placeholder="{{ vm.placeholder }}">\n        {{ vm.getMappedItem($item || $select.selected) }}\n      </ui-select-match>\n      <ui-select-choices\n        repeat="item in vm.items | filter: $select.search"\n        refresh="vm.searchItems()"\n        refresh-delay="vm.refreshDelay || 200"\n        group-by="vm.groupBy">\n        <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>\n      </ui-select-choices>\n    </ui-select>\n    <span class="input-group-btn" ng-if="vm.canToggleAll">\n      <button\n        ng-click="vm.toggleAll()"\n        class="btn btn-default"\n        style="height: calc(100% + 14px)">\n        <span class="fa fa-check-square-o" ng-show="vm.items.length !== vm.selected.length"></span>\n        <span class="fa fa-square-o" ng-show="vm.items.length === vm.selected.length"></span>\n      </button>\n    </span>\n  </div>\n';
+	var template = '\n  <div ng-class="{\'input-group select2-bootstrap-append\': vm.canToggleAll}">\n    <ui-select\n      ng-model="vm.selected"\n      ng-change="vm.modelChanged()"\n      ng-disabled="vm.ngDisabled"\n      theme="select2"\n      class="form-control"\n      search-enabled="vm.searchEnabled">\n      <ui-select-match placeholder="{{ vm.placeholder }}">\n        {{ vm.getMappedItem($item || $select.selected) }}\n      </ui-select-match>\n      <ui-select-choices\n        repeat="item in vm.items | filter: $select.search"\n        refresh="vm.searchItems()"\n        refresh-delay="vm.refreshDelay || 200"\n        group-by="vm.groupBy">\n        <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>\n      </ui-select-choices>\n    </ui-select>\n    <span class="input-group-btn" ng-if="vm.canToggleAll">\n      <button\n        ng-click="vm.selectAll()"\n        class="btn btn-default"\n        style="height: calc(100% + 14px)">\n        <i class="fa fa-check-square-o"></i>\n      </button>\n      <button\n        ng-click="vm.deselectAll()"\n        class="btn btn-default"\n        style="height: calc(100% + 14px)">\n        <i class="fa fa-square-o"></i>\n      </button>\n    </span>\n  </div>\n';
 
 	function scSelect() {
 
@@ -192,7 +192,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var vm = this;
 	      var loadingDelay = _angular2['default'].isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;
-	      var optionScope = undefined;
 	      vm.currentPage = 1;
 	      vm.canToggleAll = vm.multiple && !vm.pageLimit;
 
@@ -214,13 +213,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (oldSearchText !== vm.uiSelectCtrl.search) {
 	              vm.currentPage = 1;
 	            }
+
 	            oldSearchText = vm.uiSelectCtrl.search;
 	            var setLoadingTimeout = $timeout(function () {
 	              vm.loading = true;
 	              vm.items = [];
 	            }, loadingDelay);
+
 	            return {
-	              v: $q.when(vm.parsedOptions.source(optionScope, {
+	              v: $q.when(vm.parsedOptions.source(vm.optionScope, {
 	                page: vm.currentPage,
 	                searchText: vm.uiSelectCtrl.search
 	              })).then(function (items) {
@@ -244,7 +245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      vm.parsedOptions = scSelectParser.parse($attrs.scOptions);
 
 	      vm.setOptionScope = function (scope) {
-	        optionScope = scope;
+	        vm.optionScope = scope; //expose for testing
 	        vm.changePage(vm.currentPage);
 	      };
 
@@ -287,12 +288,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return vm.parsedOptions.viewMapper(_defineProperty({}, vm.parsedOptions.itemName, localItem));
 	      };
 
-	      vm.toggleAll = function () {
-	        if (!vm.selected || vm.selected.length < vm.items.length) {
-	          vm.selected = vm.items;
-	        } else {
-	          vm.selected = [];
-	        }
+	      vm.selectAll = function () {
+	        vm.selected = vm.items;
+	        vm.modelChanged();
+	      };
+
+	      vm.deselectAll = function () {
+	        vm.selected = [];
 	        vm.modelChanged();
 	      };
 	    }],
@@ -363,7 +365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return {
 	    restrict: 'E',
 	    require: ['?^scSelect', '^uiSelect'],
-	    template: '\n        <div\n          ng-show="vm.scSelectCtrl.loading"\n          style="padding: 10px"\n          class="text-center">\n          <i class="fa fa-spin fa-spinner"></i> <b>Loading...</b>\n        </div>\n        <div\n          ng-style="{padding: vm.scSelectCtrl.multiple ? \'10px\' : \'10px 0\'}"\n          ng-if="vm.scSelectCtrl && vm.scSelectCtrl.pageLimit"\n          ng-show="vm.scSelectCtrl.items.length > 0">\n          <div class="btn-group">\n            <button\n             class="btn btn-default btn-xs"\n             ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage - 1)"\n             ng-disabled="vm.scSelectCtrl.currentPage <= 1">\n              <i class="glyphicon glyphicon-arrow-left"></i> Prev\n            </button>\n            <button\n            class="btn btn-default btn-xs"\n            ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage + 1)"\n            ng-disabled="vm.scSelectCtrl.currentPage >= (vm.scSelectCtrl.totalItems / vm.scSelectCtrl.pageLimit)">\n              Next <i class="glyphicon glyphicon-arrow-right"></i>\n            </button>\n          </div>\n          <small class="pull-right">\n            {{ (vm.scSelectCtrl.currentPage - 1) * vm.scSelectCtrl.pageLimit + 1 }} -\n            {{ vm.scSelectCtrl.currentPage * vm.scSelectCtrl.pageLimit > vm.scSelectCtrl.totalItems ? vm.scSelectCtrl.totalItems : vm.scSelectCtrl.currentPage * vm.scSelectCtrl.pageLimit }} of\n            {{ vm.scSelectCtrl.totalItems }} results\n           </small>\n        </div>\n      ',
+	    template: '\n        <div\n          ng-show="vm.scSelectCtrl.loading"\n          style="padding: 10px"\n          class="text-center">\n          <i class="fa fa-spin fa-spinner"></i> <b>Loading...</b>\n        </div>\n        <div\n          ng-style="{padding: vm.scSelectCtrl.multiple ? \'10px\' : \'10px 0\'}"\n          ng-if="vm.scSelectCtrl && vm.scSelectCtrl.pageLimit"\n          ng-show="vm.scSelectCtrl.items.length > 0">\n          <div class="btn-group">\n            <button\n             class="btn btn-default btn-xs"\n             ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage - 1)"\n             ng-disabled="vm.scSelectCtrl.currentPage <= 1">\n              <i class="fa fa-arrow-left"></i> Prev\n            </button>\n            <button\n            class="btn btn-default btn-xs"\n            ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage + 1)"\n            ng-disabled="vm.scSelectCtrl.currentPage >= (vm.scSelectCtrl.totalItems / vm.scSelectCtrl.pageLimit)">\n              Next <i class="fa fa-arrow-right"></i>\n            </button>\n          </div>\n          <small class="pull-right">\n            {{ (vm.scSelectCtrl.currentPage - 1) * vm.scSelectCtrl.pageLimit + 1 }} -\n            {{ vm.scSelectCtrl.currentPage * vm.scSelectCtrl.pageLimit > vm.scSelectCtrl.totalItems ? vm.scSelectCtrl.totalItems : vm.scSelectCtrl.currentPage * vm.scSelectCtrl.pageLimit }} of\n            {{ vm.scSelectCtrl.totalItems }} results\n           </small>\n        </div>\n      ',
 	    scope: {},
 	    bindToController: true,
 	    controller: _angular2['default'].noop,
