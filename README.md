@@ -27,7 +27,7 @@ npm install angular-sc-select --save
 ```
 
 ```javascript
-angular.module('myApp', [require('sc-select'), require('ngSanitze'), require('ui-select')]);
+angular.module('myApp', [require('angular-sc-select'), require('ngSanitze'), require('ui-select')]);
 ```
 
 ## API
