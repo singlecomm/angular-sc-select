@@ -22,11 +22,16 @@ const template = `
     </ui-select>
     <span class="input-group-btn" ng-if="vm.canToggleAll">
       <button
-        ng-click="vm.toggleAll()"
+        ng-click="vm.selectAll()"
         class="btn btn-default"
         style="height: calc(100% + 14px)">
-        <span class="fa fa-check-square-o" ng-show="vm.items.length !== vm.selected.length"></span>
-        <span class="fa fa-square-o" ng-show="vm.items.length === vm.selected.length"></span>
+        <i class="fa fa-check-square-o"></i>
+      </button>
+      <button
+        ng-click="vm.deselectAll()"
+        class="btn btn-default"
+        style="height: calc(100% + 14px)">
+        <i class="fa fa-square-o"></i>
       </button>
     </span>
   </div>
@@ -64,7 +69,7 @@ export default function /*@ngInject*/ scSelect() {
           }
 
           oldSearchText = vm.uiSelectCtrl.search;
-          const setLoadingTimeout = $timeout(function() {
+          const setLoadingTimeout = $timeout(() => {
             vm.loading = true;
             vm.items = [];
           }, loadingDelay);
@@ -72,9 +77,9 @@ export default function /*@ngInject*/ scSelect() {
           return $q.when(vm.parsedOptions.source(vm.optionScope, {
             page: vm.currentPage,
             searchText: vm.uiSelectCtrl.search
-          })).then(function(items) {
+          })).then((items) => {
             vm.items = items;
-          }).finally(function() {
+          }).finally(() => {
             vm.loading = false;
             $timeout.cancel(setLoadingTimeout);
           });
@@ -101,7 +106,7 @@ export default function /*@ngInject*/ scSelect() {
           if (!ngModelCtrl.$viewValue) {
             return;
           }
-          const matchingItems = vm.items.filter(function(item) {
+          const matchingItems = vm.items.filter((item) => {
             const itemValue = vm.parsedOptions.modelMapper({
               [vm.parsedOptions.itemName]: item
             });
@@ -123,7 +128,7 @@ export default function /*@ngInject*/ scSelect() {
       vm.modelChanged = function() {
         let modelValue;
         if (vm.multiple) {
-          modelValue = vm.selected.map(function(item) {
+          modelValue = vm.selected.map((item) => {
             return vm.parsedOptions.modelMapper({
               [vm.parsedOptions.itemName]: item
             });
@@ -142,12 +147,13 @@ export default function /*@ngInject*/ scSelect() {
         });
       };
 
-      vm.toggleAll = function() {
-        if (!vm.selected || vm.selected.length < vm.items.length) {
-          vm.selected = vm.items;
-        } else {
-          vm.selected = [];
-        }
+      vm.selectAll = function() {
+        vm.selected = vm.items;
+        vm.modelChanged();
+      };
+
+      vm.deselectAll = function() {
+        vm.selected = [];
         vm.modelChanged();
       };
 
