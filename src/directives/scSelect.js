@@ -101,7 +101,7 @@ export default function /*@ngInject*/ scSelect() {
           if (!ngModelCtrl.$viewValue) {
             return;
           }
-          const matchingItems = vm.items.filter(function(item) {
+          const matchingItems = vm.items.filter((item) => {
             const itemValue = vm.parsedOptions.modelMapper({
               [vm.parsedOptions.itemName]: item
             });
@@ -123,7 +123,7 @@ export default function /*@ngInject*/ scSelect() {
       vm.modelChanged = function() {
         let modelValue;
         if (vm.multiple) {
-          modelValue = vm.selected.map(function(item) {
+          modelValue = vm.selected.map((item) => {
             return vm.parsedOptions.modelMapper({
               [vm.parsedOptions.itemName]: item
             });
