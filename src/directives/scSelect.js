@@ -24,12 +24,14 @@ const template = `
       <button
         ng-click="vm.selectAll()"
         class="btn btn-default"
+        type="button"
         style="height: calc(100% + 14px)">
         <i class="fa fa-check-square-o"></i>
       </button>
       <button
         ng-click="vm.deselectAll()"
         class="btn btn-default"
+        type="button"
         style="height: calc(100% + 14px)">
         <i class="fa fa-square-o"></i>
       </button>
