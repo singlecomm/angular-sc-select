@@ -159,6 +159,16 @@ export default function /*@ngInject*/ scSelect() {
         vm.modelChanged();
       };
 
+      if (!angular.isDefined(vm.pageLimit)) {
+        $scope.$watch(function() {
+          return vm.parsedOptions.source(vm.optionScope);
+        }, function(items) {
+          if (items) {
+            vm.items = items;
+          }
+        });
+      }
+
     },
     controllerAs: 'vm',
     bindToController: true,
