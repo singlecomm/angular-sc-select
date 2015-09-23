@@ -105,14 +105,19 @@ export default function /*@ngInject*/ scSelect() {
         vm.ngModelCtrl = ngModelCtrl;
 
         ngModelCtrl.$render = function() {
+
           if (!ngModelCtrl.$viewValue) {
             return;
           }
+
           const matchingItems = vm.items.filter((item) => {
             const itemValue = vm.parsedOptions.modelMapper({
               [vm.parsedOptions.itemName]: item
             });
             if (vm.multiple) {
+              if (!ngModelCtrl.$viewValue) {
+                return false;
+              }
               return ngModelCtrl.$viewValue.indexOf(itemValue) > -1;
             } else {
               return ngModelCtrl.$viewValue === itemValue;
@@ -124,6 +129,11 @@ export default function /*@ngInject*/ scSelect() {
             vm.selected = matchingItems[0];
           }
         };
+
+        //Ensure items array has been populated first - as it uses $q.when it will be after the first digest
+        $timeout(function() {
+          vm.ngModelCtrl.$render();
+        });
 
       };
 
