@@ -253,12 +253,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.ngModelCtrl = ngModelCtrl;
 
 	        ngModelCtrl.$render = function () {
+
 	          if (!ngModelCtrl.$viewValue) {
 	            return;
 	          }
+
 	          var matchingItems = vm.items.filter(function (item) {
 	            var itemValue = vm.parsedOptions.modelMapper(_defineProperty({}, vm.parsedOptions.itemName, item));
 	            if (vm.multiple) {
+	              if (!ngModelCtrl.$viewValue) {
+	                return false;
+	              }
 	              return ngModelCtrl.$viewValue.indexOf(itemValue) > -1;
 	            } else {
 	              return ngModelCtrl.$viewValue === itemValue;
@@ -270,6 +275,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	            vm.selected = matchingItems[0];
 	          }
 	        };
+
+	        //Ensure items array has been populated first - as it uses $q.when it will be after the first digest
+	        $timeout(function () {
+	          vm.ngModelCtrl.$render();
+	        });
 	      };
 
 	      vm.modelChanged = function () {
