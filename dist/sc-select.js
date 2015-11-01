@@ -86,14 +86,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _directivesScSelectPaginator2 = _interopRequireDefault(_directivesScSelectPaginator);
 
-	exports['default'] = _angular2['default'].module('sc.select', ['ngSanitize', 'ui.select']).factory('scSelectParser', _factoriesScSelectParser2['default']).directive('scSelect', _directivesScSelect2['default']).directive('scOptions', _directivesScOptions2['default']).directive('scSelectPaginator', _directivesScSelectPaginator2['default']).run( /*@ngInject*/["$templateCache", function ($templateCache) {
+	exports['default'] = _angular2['default'].module('sc.select', ['ngSanitize', 'ui.select']).factory('scSelectParser', _factoriesScSelectParser2['default']).directive('scSelect', _directivesScSelect2['default']).directive('scOptions', _directivesScOptions2['default']).directive('scSelectPaginator', _directivesScSelectPaginator2['default']).run(["$templateCache", function ($templateCache) {
+
+	  'ngInject';
 
 	  var multiTemplateName = 'select2/select-multiple.tpl.html';
 	  var multiTemplate = _angular2['default'].element('<div>' + $templateCache.get(multiTemplateName) + '</div>');
 	  multiTemplate.find('ul').next().prepend(_angular2['default'].element('<sc-select-paginator></sc-select-paginator>'));
 	  multiTemplate.find('input').attr('ng-disabled', '$select.disabled || ($select.searchEnabled === false && $select.open)');
 	  $templateCache.put(multiTemplateName, multiTemplate.html());
-	}]).run( /*@ngInject*/["$templateCache", function ($templateCache) {
+	}]).run(["$templateCache", function ($templateCache) {
+
+	  'ngInject';
 
 	  var singleTemplateName = 'select2/select.tpl.html';
 	  var singleTemplate = _angular2['default'].element('<div>' + $templateCache.get(singleTemplateName) + '</div>');
@@ -136,9 +140,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = /*@ngInject*/scSelectParser;
+	exports['default'] = scSelectParser;
 
 	function scSelectParser($parse) {
+
+	  'ngInject';
+
 	  var TYPEAHEAD_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;
 
 	  return {
@@ -170,7 +177,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = /*@ngInject*/scSelect;
+	exports['default'] = scSelect;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -184,11 +191,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function scSelect() {
 
+	  'ngInject';
+
 	  return {
 	    restrict: 'E',
 	    require: 'ngModel',
 	    template: '<div></div>',
-	    controller: /*@ngInject*/["$attrs", "$element", "$compile", "$scope", "$q", "$timeout", "scSelectParser", function controller($attrs, $element, $compile, $scope, $q, $timeout, scSelectParser) {
+	    controller: ["$attrs", "$element", "$compile", "$parse", "$scope", "$q", "$timeout", "scSelectParser", function controller($attrs, $element, $compile, $parse, $scope, $q, $timeout, scSelectParser) {
+
+	      'ngInject';
 
 	      var vm = this;
 	      var loadingDelay = _angular2['default'].isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;
@@ -317,6 +328,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }
 	        });
 	      }
+
+	      if (_angular2['default'].isUndefined(vm.groupBy) && _angular2['default'].isDefined($attrs.groupBy)) {
+	        (function () {
+	          var getGroupBy = $parse($attrs.groupBy);
+	          vm.groupBy = function (item) {
+	            return getGroupBy(item);
+	          };
+	        })();
+	      }
 	    }],
 	    controllerAs: 'vm',
 	    bindToController: true,
@@ -348,9 +368,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = /*@ngInject*/scOptions;
+	exports['default'] = scOptions;
 
 	function scOptions() {
+
+	  'ngInject';
 
 	  return {
 	    restrict: 'A',
@@ -372,7 +394,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	exports['default'] = /*@ngInject*/scSelectPaginator;
+	exports['default'] = scSelectPaginator;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -381,6 +403,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _angular2 = _interopRequireDefault(_angular);
 
 	function scSelectPaginator() {
+
+	  'ngInject';
 
 	  return {
 	    restrict: 'E',
