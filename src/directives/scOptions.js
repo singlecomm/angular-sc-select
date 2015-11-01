@@ -1,4 +1,6 @@
-export default function /*@ngInject*/ scOptions() {
+export default function scOptions() {
+
+  'ngInject';
 
   return {
     restrict: 'A',

@@ -1,4 +1,7 @@
-export default function /*@ngInject*/ scSelectParser($parse) {
+export default function scSelectParser($parse) {
+
+  'ngInject';
+
   const TYPEAHEAD_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;
 
   return {
