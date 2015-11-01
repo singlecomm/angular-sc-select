@@ -72,7 +72,14 @@ The delay in ms between finishing typing and the select values being queries fro
 How long to wait until displaying the loading indicator. If items are loaded before this delay occurs then the loading indicator will never be shown. Default `0`.
 
 ### group-by
-An expression used to group options by a value. Passed to the original `ui-select` so works exactly the same as that.
+This has 2 possible types that can be passed to it:
+* A string value that indicates the field to group by e.g. `group-by="name"` will group by the items `name` field
+* A function in the scope that returns a value to group by e.g. `group-by="vm.groupBy"` where `vm.groupBy` is defined as:
+```
+vm.groupBy = function(item) {
+  return 'My custom prefix: ' + item.label; // you would put more advanced logic here than this
+};
+```
 
 For more examples [demo page](https://github.com/singlecomm/angular-sc-select/blob/master/index.html).
 

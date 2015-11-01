@@ -110,7 +110,7 @@ describe('scSelect directive', () => {
       expect(elm.find('.ui-select-container').hasClass('select2-container-disabled')).to.be.true;
     });
 
-    it('should group items', () => {
+    it('should group items by a scope function', () => {
       const {scope} = createSelect(`
         <sc-select
           ng-model="vm.value"
@@ -120,6 +120,18 @@ describe('scSelect directive', () => {
       `);
       $timeout.flush();
       expect(scope.vm.groupBy).to.have.been.calledWith(scope.vm.items[0]);
+    });
+
+    it('should group items by a string field', () => {
+      const {elm} = createSelect(`
+        <sc-select
+          ng-model="vm.value"
+          sc-options="item for item in vm.items"
+          group-by="country">
+        </sc-select>
+      `);
+      $timeout.flush();
+      expect(elm.find('.ui-select-choices-group-label').html()).to.equal('United States');
     });
 
     it('should set placeholder text on the select', () => {
@@ -142,20 +154,6 @@ describe('scSelect directive', () => {
         </sc-select>
       `);
       expect(elm.find('.select2-search').is(':visible')).to.be.false;
-    });
-
-    it('should set the refresh delay', () => {
-      const {scope} = createSelect(`
-        <sc-select
-          ng-model="vm.value"
-          sc-options="item for item in vm.searchItems()"
-          refresh-delay="1000">
-        </sc-select>
-      `);
-      $timeout.flush(500);
-      expect(scope.vm.searchItems).not.to.have.been.called;
-      $timeout.flush(1000);
-      expect(scope.vm.searchItems).to.have.been.called;
     });
 
     it('should set the loading delay', () => {
@@ -191,16 +189,6 @@ describe('scSelect directive', () => {
         select.selectCtrl.uiSelectCtrl.search = 'changed';
         select.selectCtrl.searchItems();
         expect(select.selectCtrl.currentPage).to.equal(1);
-      });
-
-      it('should set loading to true and reset items after a timeout', () => {
-        select.scope.vm.searchItems.returns($timeout(angular.noop, 1000));
-        select.selectCtrl.loading = false;
-        select.selectCtrl.items = [{id: 1}];
-        select.selectCtrl.searchItems();
-        $timeout.flush(0);
-        expect(select.selectCtrl.loading).to.be.true;
-        expect(select.selectCtrl.items).to.eql([]);
       });
 
       it('should update items from the expression', () => {

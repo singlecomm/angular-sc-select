@@ -45,7 +45,7 @@ export default function /*@ngInject*/ scSelect() {
     restrict: 'E',
     require: 'ngModel',
     template: '<div></div>',
-    controller: /*@ngInject*/ function($attrs, $element, $compile, $scope, $q, $timeout, scSelectParser) {
+    controller: /*@ngInject*/ function($attrs, $element, $compile, $parse, $scope, $q, $timeout, scSelectParser) {
 
       const vm = this;
       const loadingDelay = angular.isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;
@@ -177,6 +177,13 @@ export default function /*@ngInject*/ scSelect() {
             vm.items = items;
           }
         });
+      }
+
+      if (angular.isUndefined(vm.groupBy) && angular.isDefined($attrs.groupBy)) {
+        const getGroupBy = $parse($attrs.groupBy);
+        vm.groupBy = function(item) {
+          return getGroupBy(item);
+        };
       }
 
     },
