@@ -173,6 +173,14 @@ export default function scSelect() {
         vm.modelChanged();
       };
 
+      $scope.$watch(function() {
+        return vm.ngModelCtrl.$modelValue;
+      }, function(selected) {
+        if (!selected) {
+          vm.selected = vm.multiple ? [] : '';
+        }
+      }, true);
+
       if (!angular.isDefined(vm.pageLimit)) {
         $scope.$watch(function() {
           return vm.parsedOptions.source(vm.optionScope);
