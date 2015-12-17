@@ -1,9 +1,13 @@
 {
   "name": "angular-sc-select",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/singlecomm/angular-sc-select",
   "authors": [
     "Matt Lewis"
+  ],
+  "contributors": [
+    "Ayman Jitan",
+    "Jay Thomas"
   ],
   "description": "An opinionated wrapper around the ui-select module",
   "main": "dist/sc-select.js",

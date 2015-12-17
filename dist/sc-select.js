@@ -319,6 +319,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.modelChanged();
 	      };
 
+	      $scope.$watch(function () {
+	        return vm.ngModelCtrl.$modelValue;
+	      }, function (selected) {
+	        if (!selected) {
+	          vm.selected = vm.multiple ? [] : '';
+	        }
+	      }, true);
+
 	      if (!_angular2['default'].isDefined(vm.pageLimit)) {
 	        $scope.$watch(function () {
 	          return vm.parsedOptions.source(vm.optionScope);

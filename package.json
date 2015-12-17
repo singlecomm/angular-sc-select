@@ -1,6 +1,6 @@
 {
   "name": "angular-sc-select",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An opinionated wrapper around the ui-select module",
   "webpack": "src/module.js",
   "browser": "dist/sc-select.js",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/singlecomm/angular-sc-select.git"
   },
-  "author": "",
+  "author": "Matt Lewis",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/singlecomm/angular-sc-select/issues"
