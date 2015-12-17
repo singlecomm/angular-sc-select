@@ -39,8 +39,11 @@ if (!WATCH) {
   webpackConfig.plugins.push(new webpack.NoErrorsPlugin());
 }
 
-var browsers = ['PhantomJS2'];
-if (process.env.CI) { //phantomjs2 doesnt work on travis, but is way faster to run test locally
+// phantomjs2 doesnt work on most operating system yet, but is way faster to run test locally
+//var browsers = ['PhantomJS2'];
+var browsers = ['PhantomJS'];
+
+if (process.env.CI) {
   browsers = ['PhantomJS'];
 }
 
