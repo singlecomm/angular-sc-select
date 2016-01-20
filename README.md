@@ -1,5 +1,7 @@
 # angular-sc-select
-This is a wrapper of the [ui-select](https://github.com/angular-ui/ui-select) directive that adds the following features: 
+[![Build Status](https://snap-ci.com/singlecomm/angular-sc-select/branch/master/build_image)](https://snap-ci.com/singlecomm/angular-sc-select/branch/master)
+
+This is a wrapper of the [ui-select](https://github.com/angular-ui/ui-select) directive that adds the following features:
 * Pagination between large lists of items
 * Select / unselect all if appropriate
 * A simpler more opinionated API that is a subset of ng-options
@@ -10,7 +12,7 @@ It supports most of the original ui-select options, but if you need more fine gr
 http://singlecomm.github.io/angular-sc-select
 
 ## Installation
-### bower
+### via bower
 ```
 bower install angular-sc-select --save
 ```
@@ -21,7 +23,7 @@ angular.module('myApp', ['sc.select']);
 
 Include `dist/sc-select.js` in your project, `dist/sc-select.css` contains the select2 and select2-bootstrap css for convenience.
 
-### npm
+### via npm
 ```
 npm install angular-sc-select --save
 ```
