@@ -122,7 +122,17 @@ export default function scSelect() {
               if (!ngModelCtrl.$viewValue) {
                 return false;
               }
-              return ngModelCtrl.$viewValue.indexOf(itemValue) > -1;
+              var found = false;
+              if (typeof ngModelCtrl.$viewValue === 'object') {
+                angular.forEach(ngModelCtrl.$viewValue, function(val) {
+                  if (val.id === itemValue.id) {
+                    found = true;
+                  }
+                });
+              } else if (ngModelCtrl.$viewValue.indexOf(itemValue) > -1) {
+                found = true;
+              }
+              return found;
             } else {
               return ngModelCtrl.$viewValue === itemValue;
             }
