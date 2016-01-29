@@ -205,7 +205,7 @@ export default function scSelect() {
       pageLimit: '=',
       totalItems: '=',
       placeholder: '@',
-      multiple: '=',
+      multiple: '=?',
       ngDisabled: '=',
       searchEnabled: '=',
       refreshDelay: '=',

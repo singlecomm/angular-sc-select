@@ -31,7 +31,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.4.5",
+    "angular": "^1.4.9",
     "bootstrap": "^3.3.5",
     "font-awesome": "^4.4.0",
     "select2-bootstrap-css": "^1.4.6",
