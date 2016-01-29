@@ -137,6 +137,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	scSelectParser.$inject = ["$parse"];
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
@@ -164,7 +165,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  };
 	}
-	scSelectParser.$inject = ["$parse"];
 
 	module.exports = exports['default'];
 
@@ -352,7 +352,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      pageLimit: '=',
 	      totalItems: '=',
 	      placeholder: '@',
-	      multiple: '=',
+	      multiple: '=?',
 	      ngDisabled: '=',
 	      searchEnabled: '=',
 	      refreshDelay: '=',
