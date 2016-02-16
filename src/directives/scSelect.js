@@ -109,34 +109,50 @@ export default function scSelect() {
         vm.ngModelCtrl = ngModelCtrl;
 
         ngModelCtrl.$render = function() {
-
           if (!ngModelCtrl.$viewValue) {
             return;
           }
-
-          const matchingItems = vm.items.filter((item) => {
-            const itemValue = vm.parsedOptions.modelMapper({
-              [vm.parsedOptions.itemName]: item
-            });
-            if (vm.multiple) {
-              if (!ngModelCtrl.$viewValue) {
-                return false;
-              }
-              var found = false;
-              if (typeof ngModelCtrl.$viewValue === 'object') {
-                angular.forEach(ngModelCtrl.$viewValue, function(val) {
-                  if (val.id === itemValue.id) {
-                    found = true;
-                  }
+          //var cc = vm.multiple ? ngModelCtrl.$viewValue : vm.items;
+          var items;
+          if (vm.multiple) {
+            items = ngModelCtrl.$viewValue;
+          } else {
+            items = vm.items;
+          }
+          var matchingItems = [];
+          if (angular.isArray(items)) {
+            matchingItems = items.filter((item) => {
+              var itemValue;
+              if (!angular.isArray(item)) {
+                itemValue = item;
+              } else {
+                itemValue = vm.parsedOptions.modelMapper({
+                  [vm.parsedOptions.itemName]: item
                 });
-              } else if (ngModelCtrl.$viewValue.indexOf(itemValue) > -1) {
-                found = true;
               }
-              return found;
-            } else {
-              return ngModelCtrl.$viewValue === itemValue;
-            }
-          });
+              if (vm.multiple) {
+                var found = false;
+                if (typeof ngModelCtrl.$viewValue === 'object') {
+
+                  angular.forEach(ngModelCtrl.$viewValue, function(val) {
+                    if (typeof val === 'string') {
+                      if (val.indexOf(itemValue) > -1) {
+                        found = true;
+                      }
+                    }
+                    if (val && itemValue && val.id === itemValue.id) {
+                      found = true;
+                    }
+                  });
+                } else if (ngModelCtrl.$viewValue.indexOf(itemValue) > -1) {
+                  found = true;
+                }
+                return found;
+              } else {
+                return ngModelCtrl.$viewValue === itemValue;
+              }
+            });
+          }
           if (vm.multiple) {
             vm.selected = matchingItems;
           } else {

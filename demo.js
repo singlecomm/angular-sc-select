@@ -23,15 +23,12 @@ angular
       {name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia'},
       {name: 'Nicolás', email: 'nicolas@email.com', age: 43, country: 'Colombia'}
     ];
-
     vm.asyncPageLimit = 10;
     vm.totalResults = 0;
-
     vm.searchAsync = function(searchText, page) {
       if (!searchText) {
         return [];
       }
-
       return $http.jsonp('http://ws.audioscrobbler.com/2.0/', {
         params: {
           api_key: '9b0cdcf446cc96dea3e747787ad23575',

@@ -8,106 +8,110 @@
       body {
         padding: 15px;
       }
+      .form-group {
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+      pre {
+        max-height: 300px;
+      }
+      .control-label {
+        text-align: left !important;
+      }
     </style>
   </head>
   <body ng-controller="DemoCtrl as vm">
-    <p>Selected person: {{ vm.selectedPerson }}</p>
-    <p>Selected track: {{ vm.selectedTrack }}</p>
-
     <form class="form-horizontal">
       <fieldset>
         <legend>sc-select demo</legend>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Single</label>
-
-          <div class="col-sm-6">
-
+        <div class="row form-group">
+          <label class="control-label col-md-7">Single</label>
+          <div class="col-md-7">
             <sc-select
-              ng-model="vm.selectedPerson"
+              ng-model="vm.singlePerson"
               sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list...">
             </sc-select>
-
+          </div>
+          <div class="col-md-7">
+            <pre ng-if="vm.singlePerson">{{vm.singlePerson | json}}</pre>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Single async</label>
-
-          <div class="col-sm-6">
-
+        <div class="row form-group">
+          <label class="control-label col-md-7">Single async</label>
+          <div class="col-md-7">
             <sc-select
-              ng-model="vm.selectedTrack"
+              ng-model="vm.singleAsyncTrack"
               sc-options="artist as artist.name for artist in vm.searchAsync(searchText, page)"
               page-limit="vm.asyncPageLimit"
               total-items="vm.totalResults"
               placeholder="Search for a song"
               loading-delay="200">
             </sc-select>
-
+          </div>
+          <div class="col-md-7">
+            <pre ng-if="vm.singleAsyncTrack">{{vm.singleAsyncTrack | json}}</pre>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Multiple</label>
-
-          <div class="col-sm-6">
-
+        <div class="row form-group">
+          <label class="control-label col-md-7">Multiple</label>
+          <div class="col-md-7">
             <sc-select
-              ng-model="vm.selectedPerson"
-              sc-options="person.email as person.name for person in vm.people"
+              ng-model="vm.multiplePeople"
+              sc-options="person as person.name for person in vm.people"
               multiple="true"
               placeholder="Select or search a person in the list...">
             </sc-select>
-
-          </div>
+            </div>
+            <div class="col-md-7">
+              <pre ng-if="vm.multiplePeople">{{vm.multiplePeople | json}}</pre>
+            </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Multiple async</label>
-
-          <div class="col-sm-6">
-
+        <div class="row form-group">
+          <label class="control-label col-md-7">Multiple async</label>
+          <div class="col-md-7">
             <sc-select
-              ng-model="vm.selectedTrack"
+              ng-model="vm.multipleAsyncTracks"
               sc-options="artist as artist.name for artist in vm.searchAsync(searchText, page)"
               page-limit="vm.asyncPageLimit"
               total-items="vm.totalResults"
               placeholder="Search for a song"
               multiple="true">
             </sc-select>
-
+          </div>
+          <div class="col-md-7">
+            <pre ng-if="vm.multipleAsyncTracks">{{vm.multipleAsyncTracks | json}}</pre>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Grouped</label>
-
-          <div class="col-sm-6">
-
+        <div class="row form-group">
+          <label class="control-label col-md-7">Grouped</label>
+          <div class="col-md-7">
             <sc-select
-              ng-model="vm.selectedPerson"
+              ng-model="vm.groupedPeople"
               sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list..."
               group-by="vm.groupBy">
             </sc-select>
-
+          </div>
+          <div class="col-md-7">
+            <pre ng-if="vm.groupedPeople">{{vm.groupedPeople | json}}</pre>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Disabled</label>
-
-          <div class="col-sm-6">
-
+        <div class="row form-group">
+          <label class="control-label col-md-7">Disabled</label>
+          <div class="col-md-7">
             <sc-select
               ng-model="vm.selectedPerson"
               sc-options="person.email as person.name for person in vm.people"
               placeholder="Select or search a person in the list..."
               ng-disabled="true">
             </sc-select>
-
           </div>
         </div>
 
