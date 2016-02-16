@@ -264,22 +264,48 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.ngModelCtrl = ngModelCtrl;
 
 	        ngModelCtrl.$render = function () {
-
 	          if (!ngModelCtrl.$viewValue) {
 	            return;
 	          }
-
-	          var matchingItems = vm.items.filter(function (item) {
-	            var itemValue = vm.parsedOptions.modelMapper(_defineProperty({}, vm.parsedOptions.itemName, item));
-	            if (vm.multiple) {
-	              if (!ngModelCtrl.$viewValue) {
-	                return false;
+	          //var cc = vm.multiple ? ngModelCtrl.$viewValue : vm.items;
+	          var items;
+	          if (vm.multiple) {
+	            items = ngModelCtrl.$viewValue;
+	          } else {
+	            items = vm.items;
+	          }
+	          var matchingItems = [];
+	          if (_angular2['default'].isArray(items)) {
+	            matchingItems = items.filter(function (item) {
+	              var itemValue;
+	              if (!_angular2['default'].isArray(item)) {
+	                itemValue = item;
+	              } else {
+	                itemValue = vm.parsedOptions.modelMapper(_defineProperty({}, vm.parsedOptions.itemName, item));
 	              }
-	              return ngModelCtrl.$viewValue.indexOf(itemValue) > -1;
-	            } else {
-	              return ngModelCtrl.$viewValue === itemValue;
-	            }
-	          });
+	              if (vm.multiple) {
+	                var found = false;
+	                if (typeof ngModelCtrl.$viewValue === 'object') {
+
+	                  _angular2['default'].forEach(ngModelCtrl.$viewValue, function (val) {
+	                    if (typeof val === 'string') {
+	                      if (val.indexOf(itemValue) > -1) {
+	                        found = true;
+	                      }
+	                    }
+	                    if (val && itemValue && val.id === itemValue.id) {
+	                      found = true;
+	                    }
+	                  });
+	                } else if (ngModelCtrl.$viewValue.indexOf(itemValue) > -1) {
+	                  found = true;
+	                }
+	                return found;
+	              } else {
+	                return ngModelCtrl.$viewValue === itemValue;
+	              }
+	            });
+	          }
 	          if (vm.multiple) {
 	            vm.selected = matchingItems;
 	          } else {
