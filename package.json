@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/singlecomm/angular-sc-select#readme",
   "devDependencies": {
-    "angular": "^1.4.7",
-    "angular-mocks": "~1.4.5",
-    "angular-sanitize": "^1.4.8",
+    "angular": "~1.5.0",
+    "angular-mocks": "~1.5.0",
+    "angular-sanitize": "~1.5.0",
     "babel-core": "~5.8.23",
     "babel-loader": "~5.3.2",
     "bootstrap": "^3.3.5",
@@ -53,7 +53,7 @@
     "select2": "^3.4.5",
     "select2-bootstrap-css": "^1.4.6",
     "style-loader": "~0.13.0",
-    "ui-select": "^0.11.2",
+    "ui-select": "^0.14.0",
     "url-loader": "~0.5.6",
     "webpack": "~1.12.0",
     "webpack-dev-server": "~1.12.1"
