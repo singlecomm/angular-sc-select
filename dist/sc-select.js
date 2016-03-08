@@ -302,6 +302,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                return found;
 	              } else {
+	                if (typeof itemValue === 'object') {
+	                  return ngModelCtrl.$viewValue === itemValue.id || ngModelCtrl.$viewValue === itemValue.label || ngModelCtrl.$viewValue.id === itemValue.id;
+	                }
 	                return ngModelCtrl.$viewValue === itemValue;
 	              }
 	            });
