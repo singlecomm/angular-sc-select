@@ -156,6 +156,11 @@ export default function scSelect() {
               }
             });
           }
+
+          if (matchingItems.length === 0 && typeof ngModelCtrl.$viewValue === 'object') {
+            matchingItems = [ngModelCtrl.$viewValue];
+          }
+
           if (vm.multiple) {
             vm.selected = matchingItems;
           } else {
