@@ -1,6 +1,7 @@
 import angular from 'angular';
 import 'select2/select2.css';
 import 'select2-bootstrap-css/select2-bootstrap.css';
+import './stylesheets/sc-select.css';
 import scSelectParser from './factories/scSelectParser';
 import scSelect from './directives/scSelect';
 import scOptions from './directives/scOptions';

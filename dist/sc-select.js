@@ -70,19 +70,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(9);
 
-	var _factoriesScSelectParser = __webpack_require__(11);
+	__webpack_require__(11);
+
+	var _factoriesScSelectParser = __webpack_require__(13);
 
 	var _factoriesScSelectParser2 = _interopRequireDefault(_factoriesScSelectParser);
 
-	var _directivesScSelect = __webpack_require__(12);
+	var _directivesScSelect = __webpack_require__(14);
 
 	var _directivesScSelect2 = _interopRequireDefault(_directivesScSelect);
 
-	var _directivesScOptions = __webpack_require__(13);
+	var _directivesScOptions = __webpack_require__(15);
 
 	var _directivesScOptions2 = _interopRequireDefault(_directivesScOptions);
 
-	var _directivesScSelectPaginator = __webpack_require__(14);
+	var _directivesScSelectPaginator = __webpack_require__(16);
 
 	var _directivesScSelectPaginator2 = _interopRequireDefault(_directivesScSelectPaginator);
 
@@ -135,6 +137,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 11 */
 /***/ function(module, exports) {
 
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 12 */,
+/* 13 */
+/***/ function(module, exports) {
+
 	'use strict';
 
 	scSelectParser.$inject = ["$parse"];
@@ -169,7 +178,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -402,7 +411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -428,7 +437,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
