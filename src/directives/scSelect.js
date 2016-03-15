@@ -22,6 +22,7 @@ const template = `
     </ui-select>
     <span class="input-group-btn" ng-if="vm.canToggleAll">
       <button
+        title="Adds all available options"
         ng-click="vm.selectAll()"
         class="btn btn-default"
         type="button"
@@ -29,6 +30,7 @@ const template = `
         <i class="fa fa-check-square-o"></i>
       </button>
       <button
+        title="Removes all options"
         ng-click="vm.deselectAll()"
         class="btn btn-default"
         type="button"
