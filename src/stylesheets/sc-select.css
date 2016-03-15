@@ -1,0 +1,16 @@
+/*
+Fix Multiple-Choice Input
+*/
+sc-select > div.input-group.select2-bootstrap-append {
+  z-index: 200;
+}
+sc-select > div.input-group.select2-bootstrap-append > div > ul > li > input {
+  width: 100% !important;
+  position: absolute;
+}
+sc-select .select2-container-multi .select2-choices {
+  min-height: 34px;
+}
+/*
+End Fix Multiple-Choice Input
+*/
