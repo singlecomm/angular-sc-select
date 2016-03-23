@@ -20,12 +20,14 @@ export default function scSelectPaginator() {
           ng-show="vm.scSelectCtrl.items.length > 0">
           <div class="btn-group">
             <button
+             type="button"
              class="btn btn-default btn-xs"
              ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage - 1)"
              ng-disabled="vm.scSelectCtrl.currentPage <= 1">
               <i class="fa fa-arrow-left"></i> Prev
             </button>
             <button
+            type="button"
             class="btn btn-default btn-xs"
             ng-click="vm.scSelectCtrl.changePage(vm.scSelectCtrl.currentPage + 1)"
             ng-disabled="vm.scSelectCtrl.currentPage >= (vm.scSelectCtrl.totalItems / vm.scSelectCtrl.pageLimit)">
