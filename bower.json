@@ -35,6 +35,6 @@
     "bootstrap": "^3.3.5",
     "font-awesome": "^4.4.0",
     "select2-bootstrap-css": "^1.4.6",
-    "angular-ui-select": "^0.14.0"
+    "angular-ui-select": "^0.16.1"
   }
 }
