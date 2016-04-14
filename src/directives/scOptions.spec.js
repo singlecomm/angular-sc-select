@@ -9,7 +9,7 @@ describe('scOptions directive', () => {
     scope.vm = {
       items: []
     };
-    const template = `<sc-select ng-model="vm.value" sc-options="item for item in vm.items"></sc-select>`;
+    const template = '<sc-select ng-model="vm.value" sc-options="item for item in vm.items"></sc-select>';
     elm = angular.element(template);
     $compile(elm)(scope);
     scope.$apply();
