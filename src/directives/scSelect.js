@@ -1,16 +1,16 @@
 import angular from 'angular';
 
 const template = `
-  <div ng-class="{'input-group select2-bootstrap-append': vm.canToggleAll}">
+  <div ng-class="{ 'input-group select2-bootstrap-append': vm.canToggleAll }">
     <ui-select
       class="form-control"
-      limit="{{ vm.multipleLimit }}"
+      limit="{{ ::vm.multipleLimit }}"
       ng-model="vm.selected"
       ng-change="vm.modelChanged()"
       ng-disabled="vm.ngDisabled"
       search-enabled="vm.searchEnabled"
       theme="select2">
-      <ui-select-match placeholder="{{ vm.placeholder }}">
+      <ui-select-match placeholder="{{ ::vm.placeholder }}">
         {{ vm.getMappedItem($item || $select.selected) }}
       </ui-select-match>
       <ui-select-choices
