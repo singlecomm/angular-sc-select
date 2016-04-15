@@ -1,15 +1,16 @@
 import angular from 'angular';
 
 const template = `
-  <div ng-class="{'input-group select2-bootstrap-append': vm.canToggleAll}">
+  <div ng-class="{ 'input-group select2-bootstrap-append': vm.canToggleAll }">
     <ui-select
+      class="form-control"
+      limit="{{ ::vm.multipleLimit }}"
       ng-model="vm.selected"
       ng-change="vm.modelChanged()"
       ng-disabled="vm.ngDisabled"
-      theme="select2"
-      class="form-control"
-      search-enabled="vm.searchEnabled">
-      <ui-select-match placeholder="{{ vm.placeholder }}">
+      search-enabled="vm.searchEnabled"
+      theme="select2">
+      <ui-select-match placeholder="{{ ::vm.placeholder }}">
         {{ vm.getMappedItem($item || $select.selected) }}
       </ui-select-match>
       <ui-select-choices
@@ -22,17 +23,17 @@ const template = `
     </ui-select>
     <span class="input-group-btn" ng-if="vm.canToggleAll">
       <button
+        class="btn btn-default"
         title="Adds all available options"
         ng-click="vm.selectAll()"
-        class="btn btn-default"
         type="button"
         style="height: calc(100% + 14px)">
         <i class="fa fa-check-square-o"></i>
       </button>
       <button
+        class="btn btn-default"
         title="Removes all options"
         ng-click="vm.deselectAll()"
-        class="btn btn-default"
         type="button"
         style="height: calc(100% + 14px)">
         <i class="fa fa-square-o"></i>
@@ -53,15 +54,16 @@ export default function scSelect() {
     controllerAs: 'vm',
     bindToController: true,
     scope: {
-      pageLimit: '=',
-      totalItems: '=',
-      placeholder: '@',
-      multiple: '=?',
-      ngDisabled: '=',
-      searchEnabled: '=',
-      refreshDelay: '=',
+      groupBy: '=',
       loadingDelay: '=',
-      groupBy: '='
+      multiple: '=?',
+      multipleLimit: '@',
+      ngDisabled: '=',
+      pageLimit: '=',
+      placeholder: '@',
+      refreshDelay: '=',
+      searchEnabled: '=',
+      totalItems: '='
     },
     link: (scope, elm, attrs, ngModelCtrl) => {
       scope.vm.setNgModelCtrl(ngModelCtrl);
@@ -75,7 +77,7 @@ export default function scSelect() {
     const vm = this;
     const loadingDelay = angular.isDefined(vm.loadingDelay) ? vm.loadingDelay : 0;
     vm.currentPage = 1;
-    vm.canToggleAll = vm.multiple && !vm.pageLimit;
+    vm.canToggleAll = vm.multiple && !vm.multipleLimit && !vm.pageLimit;
 
     const selectElm = angular.element(template);
     if (vm.multiple) {

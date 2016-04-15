@@ -89,6 +89,22 @@
         </div>
 
         <div class="row form-group">
+          <label class="control-label col-md-7">Multiple limited to 3 items</label>
+          <div class="col-md-7">
+            <sc-select
+              ng-model="vm.multipleLimit"
+              sc-options="person as person.name for person in vm.people"
+              placeholder="Select or search a person in the list..."
+              multiple="true"
+              multiple-limit="3">
+            </sc-select>
+          </div>
+          <div class="col-md-7">
+            <pre ng-if="vm.multipleLimit">{{vm.multipleLimit | json}}</pre>
+          </div>
+        </div>
+
+        <div class="row form-group">
           <label class="control-label col-md-7">Grouped</label>
           <div class="col-md-7">
             <sc-select
