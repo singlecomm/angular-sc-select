@@ -57,7 +57,7 @@ export default function scSelect() {
       groupBy: '=',
       loadingDelay: '=',
       multiple: '=?',
-      multipleLimit: '=?',
+      multipleLimit: '@',
       ngDisabled: '=',
       pageLimit: '=',
       placeholder: '@',
