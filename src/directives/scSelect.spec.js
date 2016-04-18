@@ -1,3 +1,4 @@
+/* global beforeEach, it, describe, inject, expect, sinon */
 import angular from 'angular';
 import $ from 'jquery';
 

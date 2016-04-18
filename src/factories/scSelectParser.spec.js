@@ -1,3 +1,4 @@
+/* global beforeEach, it, describe, inject, expect, afterEach */
 describe('scSelectParser', () => {
 
   let scSelectParser;
