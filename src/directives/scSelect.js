@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 const template = `
-  <div ng-class="{ 'input-group select2-bootstrap-append': vm.canToggleAll }">
+  <div ng-class="{ 'input-group select2-bootstrap-append': vm.canToggleAll && vm.toggleAllEnabled !== false }">
     <ui-select
       class="form-control"
       limit="{{ ::vm.multipleLimit }}"
@@ -21,7 +21,7 @@ const template = `
         <div ng-bind-html="vm.getMappedItem(item) | highlight: $select.search"></div>
       </ui-select-choices>
     </ui-select>
-    <span class="input-group-btn" ng-if="vm.canToggleAll">
+    <span class="input-group-btn" ng-if="vm.canToggleAll && vm.toggleAllEnabled !== false">
       <button
         class="btn btn-default"
         title="Adds all available options"
@@ -63,6 +63,7 @@ export default function scSelect() {
       placeholder: '@',
       refreshDelay: '=',
       searchEnabled: '=',
+      toggleAllEnabled: '=',
       totalItems: '='
     },
     link: (scope, elm, attrs, ngModelCtrl) => {

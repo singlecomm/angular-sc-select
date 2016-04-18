@@ -52,27 +52,6 @@ A subset of the angular `ng-options` directive. Supports values are:
 
 `sourceArray` can also be a function which returns a promise. `searchText` and `page` are variables available to the function expression as the search value and current page of the select results.
 
-### placeholder
-A placeholder value that will display if no value is assigned to the `ng-model` value.
-
-### page-limit
-The total number of items that will be shown on each set of results. If omitted pagination will be hidden.
-
-### total-items
-The total number of search results.
-
-### multiple
-Set to `true` to enable multiple items to be selected.
-
-### search-enabled
-Set to `false` to hide the search box.
-
-### refresh-delay
-The delay in ms between finishing typing and the select values being queries from the server. Default `200`.
-
-### loading-delay
-How long to wait until displaying the loading indicator. If items are loaded before this delay occurs then the loading indicator will never be shown. Default `0`.
-
 ### group-by
 This has 2 possible types that can be passed to it:
 * A string value that indicates the field to group by e.g. `group-by="name"` will group by the items `name` field
@@ -83,7 +62,34 @@ vm.groupBy = function(item) {
 };
 ```
 
-For more examples [demo page](https://github.com/singlecomm/angular-sc-select/blob/master/index.html).
+For more examples see the [demo page](https://github.com/singlecomm/angular-sc-select/blob/master/index.html).
+
+### loading-delay
+How long to wait until displaying the loading indicator. If items are loaded before this delay occurs then the loading indicator will never be shown. Default `0`.
+
+### multiple
+Set to `true` to enable multiple items to be selected.
+
+### multiple-limit
+The maximum number of items that can be selected. Set to `0` or `false` to disable. Default is disabled.
+
+### placeholder
+A placeholder value that will display if no value is assigned to the `ng-model` value.
+
+### page-limit
+The total number of items that will be shown on each set of results. If omitted pagination will be hidden.
+
+### refresh-delay
+The delay in ms between finishing typing and the select values being queries from the server. Default `200`.
+
+### search-enabled
+Set to `false` to hide the search box.
+
+### toggle-all-enabled
+Set to `false` to hide the select/de-select all buttons.
+
+### total-items
+The total number of search results.
 
 ## Development
 
@@ -92,10 +98,10 @@ For more examples [demo page](https://github.com/singlecomm/angular-sc-select/bl
 * Install local dev dependencies: `npm install` while current directory is this repo
 
 ### Development server
-Run `npm start` to start a development server on port 8000 with auto reload + run tests. 
+Run `npm start` to start a development server on port 8000 with auto reload + run tests.
 
 ### Testing
-Run `npm test` to run tests once or `npm run test:watch` to continually run tests (this is automatic when you run `npm start`). 
+Run `npm test` to run tests once or `npm run test:watch` to continually run tests (this is automatic when you run `npm start`).
 
 ### Build
 Run `npm run build` to build the project files in the dist folder
