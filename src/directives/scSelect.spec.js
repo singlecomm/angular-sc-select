@@ -61,12 +61,37 @@ describe('scSelect directive', () => {
       expect(elm.find('.ui-select-container').hasClass('ui-select-multiple')).to.be.true;
     });
 
-    it('should show the select / delect all buttons', () => {
+    it('should show the toggle-all buttons', () => {
       const {elm} = createSelect(`
         <sc-select
           ng-model="vm.value"
           sc-options="item for item in vm.items"
-          multiple="true">
+          multiple="true"
+          toggle-all-enabled="true">
+        </sc-select>
+      `);
+      expect(elm.find('.input-group-btn button').size()).to.be.equal(2);
+    });
+
+    it('should hide the toggle-all buttons', () => {
+      const {elm} = createSelect(`
+        <sc-select
+          ng-model="vm.value"
+          sc-options="item for item in vm.items"
+          multiple="true"
+          toggle-all-enabled="false">
+        </sc-select>
+      `);
+      expect(elm.find('.input-group-btn button').size()).to.be.equal(0);
+    });
+
+    it('should show the toggle-all buttons by default', () => {
+      const {elm} = createSelect(`
+        <sc-select
+          ng-model="vm.value"
+          sc-options="item for item in vm.items"
+          multiple="true"
+          toggle-all-enabled="true">
         </sc-select>
       `);
       expect(elm.find('.input-group-btn button').size()).to.be.equal(2);
