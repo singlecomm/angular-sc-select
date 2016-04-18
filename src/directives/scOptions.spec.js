@@ -1,3 +1,4 @@
+/* global beforeEach, it, describe, inject, expect */
 import angular from 'angular';
 
 describe('scOptions directive', () => {
