@@ -340,8 +340,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        }
 
-	        if (matchingItems.length === 0 && _angular2.default.isObject(ngModelCtrl.$viewValue) && !_angular2.default.equals(ngModelCtrl.$viewValue, {})) {
-	          matchingItems = [ngModelCtrl.$viewValue];
+	        if (_typeof(ngModelCtrl.$viewValue) === 'object') {
+	          for (var i = 0; i < ngModelCtrl.$viewValue.length; i++) {
+	            if (!ngModelCtrl.$viewValue[i].id) {
+	              ngModelCtrl.$viewValue.splice(i--, 1);
+	            }
+	          }
+
+	          if (!matchingItems.length && ngModelCtrl.$viewValue.length) {
+	            matchingItems = [ngModelCtrl.$viewValue];
+	          }
 	        }
 
 	        if (vm.multiple) {
