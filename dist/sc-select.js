@@ -183,7 +183,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.default = scSelect;
 
@@ -340,8 +340,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        }
 
-	        if (matchingItems.length === 0 && _typeof(ngModelCtrl.$viewValue) === 'object') {
-	          matchingItems = [ngModelCtrl.$viewValue];
+	        if (_typeof(ngModelCtrl.$viewValue) === 'object') {
+	          for (var i = 0; i < ngModelCtrl.$viewValue.length; i++) {
+	            if (!ngModelCtrl.$viewValue[i].id) {
+	              ngModelCtrl.$viewValue.splice(i--, 1);
+	            }
+	          }
+
+	          if (!matchingItems.length && ngModelCtrl.$viewValue.length) {
+	            matchingItems = [ngModelCtrl.$viewValue];
+	          }
 	        }
 
 	        if (vm.multiple) {

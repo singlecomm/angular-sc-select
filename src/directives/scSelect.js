@@ -183,8 +183,16 @@ export default function scSelect() {
           });
         }
 
-        if (matchingItems.length === 0 && typeof ngModelCtrl.$viewValue === 'object') {
-          matchingItems = [ngModelCtrl.$viewValue];
+        if (typeof ngModelCtrl.$viewValue === 'object') {
+          for (var i = 0; i < ngModelCtrl.$viewValue.length; i++) {
+            if (!ngModelCtrl.$viewValue[i].id) {
+              ngModelCtrl.$viewValue.splice(i--, 1);
+            }
+          }
+
+          if (!matchingItems.length && ngModelCtrl.$viewValue.length) {
+            matchingItems = [ngModelCtrl.$viewValue];
+          }
         }
 
         if (vm.multiple) {
