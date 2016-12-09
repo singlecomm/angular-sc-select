@@ -183,7 +183,7 @@ export default function scSelect() {
           });
         }
 
-        if (matchingItems.length === 0 && typeof angular.isObject(ngModelCtrl.$viewValue) && !angular.equals(ngModelCtrl.$viewValue, {})) {
+        if (matchingItems.length === 0 && angular.isObject(ngModelCtrl.$viewValue) && !angular.equals(ngModelCtrl.$viewValue, {})) {
           matchingItems = [ngModelCtrl.$viewValue];
         }
 
