@@ -1,6 +1,6 @@
 {
   "name": "angular-sc-select",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "An opinionated wrapper around the ui-select module",
   "webpack": "src/module.js",
   "browser": "dist/sc-select.js",
