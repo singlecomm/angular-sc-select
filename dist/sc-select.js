@@ -183,7 +183,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.default = scSelect;
 
@@ -340,7 +340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        }
 
-	        if (matchingItems.length === 0 && _typeof(ngModelCtrl.$viewValue) === 'object') {
+	        if (matchingItems.length === 0 && _typeof(_angular2.default.isObject(ngModelCtrl.$viewValue)) && !_angular2.default.equals(ngModelCtrl.$viewValue, {})) {
 	          matchingItems = [ngModelCtrl.$viewValue];
 	        }
 
