@@ -340,7 +340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	        }
 
-	        if (matchingItems.length === 0 && _typeof(_angular2.default.isObject(ngModelCtrl.$viewValue)) && !_angular2.default.equals(ngModelCtrl.$viewValue, {})) {
+	        if (matchingItems.length === 0 && _angular2.default.isObject(ngModelCtrl.$viewValue) && !_angular2.default.equals(ngModelCtrl.$viewValue, {})) {
 	          matchingItems = [ngModelCtrl.$viewValue];
 	        }
 
