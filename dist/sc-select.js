@@ -347,7 +347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 	          }
 
-	          if (!matchingItems.length && ngModelCtrl.$viewValue.length) {
+	          if (!matchingItems.length && (ngModelCtrl.$viewValue.length || Object.keys(ngModelCtrl.$viewValue).length > 1)) {
 	            matchingItems = [ngModelCtrl.$viewValue];
 	          }
 	        }
